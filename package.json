@@ -1,0 +1,31 @@
+{
+  "name": "si1-2019",
+  "version": "1.0.0",
+  "description": "\"Software desenvolvido para a disciplina de SI na UnB 1.2019\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node public-server/index.js",
+    "proxy": "echo \"Montar isso aqui\"",
+    "dev": "nodemon public-server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArthurPieri/SI1-2019.git"
+  },
+  "author": "\"Arthur Pieri, Jonatas Gomes, Lucas Miranda, Matheus Velaci e Victor Guedes\"",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ArthurPieri/SI1-2019/issues"
+  },
+  "homepage": "https://github.com/ArthurPieri/SI1-2019#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mongoose": "^5.5.0",
+    "path": "^0.12.7",
+    "validator": "^10.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.11"
+  }
+}
