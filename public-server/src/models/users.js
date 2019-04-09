@@ -46,5 +46,10 @@ const User = mongoose.model('users', {
                 throw new Error('Senha não pode conter "123456"')
             }
         }
+    },
+    materias: {
+        type: String
     }
 })
+
+module.exports = User
