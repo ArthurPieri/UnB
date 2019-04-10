@@ -15,6 +15,15 @@ router.post('/professor', async (req, res => {
     }
 }))
 
+router.post('/professors/login', async (req, res) => {
+    try{
+        const professor = await Professor.findByCredentials(req.body.email, req.body.password)
+        res.send(professor)
+    }catch(e){
+        res.status(400).send()
+    }
+})
+
 router.get('/professor', async (req, res) => {
     try{
         const professors = await Professor.find({})

@@ -11,7 +11,9 @@ const materiaSchema = new mongoose.Schema({
     // Removing extra spaces
             trim: true,
     // it must not be longer than 7
-            maxlength: 7
+            maxlength: 7,
+    // There can be only one materia with the provided codigo
+            unique: true
         },
         nome: {
             type: String,

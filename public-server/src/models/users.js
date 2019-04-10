@@ -14,7 +14,9 @@ const userSchema = new mongoose.Schema({
     // Needs to be at least 6 characteres long
             minlength: 6,
     // Most not be longer than 10 characteres long
-            maxlength: 10
+            maxlength: 10,
+    // Defining that can only be one user with the matricula provided
+            unique: true
         },
         nomeCompleto: {
             type: String,
@@ -46,6 +48,22 @@ const userSchema = new mongoose.Schema({
         }
     })
 
+userSchema.statics.findByCredentials = async (email, password) => {
+    const user = await User.findOne({ email })
+    if(!user){
+        throw new Error('Unable to login')
+    }
+   
+    const isMatch = await bcrypt.compare(password, user.password)
+  
+    if(!isMatch){
+        throw new Error('Unable to login')
+    }
+  
+    return user
+}
+    
+// Hash the plain text password before saving    
 userSchema.pre('save', async function (){
     const user = this
 

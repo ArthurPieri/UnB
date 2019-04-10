@@ -15,7 +15,9 @@ const professorSchema = new mongoose.Schema({
     // Must be at least 6 characteres long
             minlength: 6,
     // Must not be longer than 10 characteres long
-            maxlength: 10
+            maxlength: 10,
+    // There can be only one professor with the proveided matricula
+            unique: true
         },
         nomeCompleto: {
             type: String,
@@ -40,6 +42,23 @@ const professorSchema = new mongoose.Schema({
             type: String
         }
     })
+
+professorSchema.statics.findByCredentials = async (email, password) => {
+    const professor = await Professor.findOne({ email })
+    if(!professor){
+        throw new Error('Unable to login')
+    }
+       
+    const isMatch = await bcrypt.compare(password, professor.password)
+      
+    if(!isMatch){
+        throw new Error('Unable to login')
+    }
+      
+    return professor
+}
+        
+// Hash the plain text password before saving   
 
 professorSchema.pre('save', async function () {
     const professor = this
