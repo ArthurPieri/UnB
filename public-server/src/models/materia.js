@@ -1,11 +1,18 @@
+// Requiring mongoose
 const mongoose = require('mongoose')
 
+// Setting up the model for Materia
 const Materia = mongoose.model('materia', {
+// Setting up the 'fields'
     codigo: {
+// Setting that codigo must be a string
         type: String,
+// Setting that it is a required field, mongoose will not save unless this field is provided
         required: true,
+// Removing extra spaces
         trim: true,
-        maxlength: 6
+// it must not be longer than 7
+        maxlength: 7
     },
     nome: {
         type: String,
@@ -26,4 +33,5 @@ const Materia = mongoose.model('materia', {
     }
 })
 
+// Exporting Materia model
 module.exports = Materia
