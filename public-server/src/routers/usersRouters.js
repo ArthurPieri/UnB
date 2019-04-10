@@ -39,7 +39,7 @@ router.get('users/:id', async (req, res) => {
 
 router.patch('users/:id', async (req, res) => {
     const updates = Object.keys(req.body)
-    const allowedUpdates = ['nomeCompleto', 'email', 'cpf', 'telefone', 'password', 'materias' ]
+    const allowedUpdates = ['nomeCompleto', 'email', 'cpf', 'telefone', 'password', 'materias', 'matricula' ]
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
 
     if (!isValidOperation) {
@@ -47,7 +47,12 @@ router.patch('users/:id', async (req, res) => {
     }
 
     try{
-        const user = await User.findByIdAndUpdate(req.params.id)
+        const user = await User.findById(req.params.id)
+
+        updates.forEach((update) => user[update] = req.body[update])
+
+        await user.save()
+        // const user = await User.findByIdAndUpdate(req.params.id)
 
         if(!user) {
             return res.status(404).send()
