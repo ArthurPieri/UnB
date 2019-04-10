@@ -39,7 +39,7 @@ router.get('/materias/:id', async (req, res) => {
 
 router.patch('/materias/:id', async (req, res) => {
     const updates = Object.keys(req.body)
-    const allowedUpdates = ['nomeCompleto', 'email', 'cpf', 'telefone', 'password', 'materias', 'matricula' ]
+    const allowedUpdates = ['codigo', 'nome', 'turma', 'local', 'professor', 'monitores']
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
 
     if (!isValidOperation) {
@@ -57,8 +57,24 @@ router.patch('/materias/:id', async (req, res) => {
         if(!materia) {
             return res.status(404).send()
         }
+
+        res.status(200).send(materia)
     }catch(e){
-        res.status(500).send()
+        res.status(500).send(e)
+    }
+})
+
+router.delete('/materias/:id', async (req, res) => {
+    try {
+        const materia = await Materia.findByIdAndDelete(req.params.id)
+
+        if (!materia){
+            return res.status(404).send()
+        }
+
+        res.send(materia)
+    } catch (e) {
+        res.status(500).send(e)
     }
 })
 

@@ -20,7 +20,7 @@ router.post('/professor/login', async (req, res) => {
         const professor = await Professor.findByCredentials(req.body.matricula, req.body.password)
         res.send(professor)
     }catch(e){
-        res.status(400).send()
+        res.status(400).send(e)
     }
 })
 
