@@ -4,7 +4,7 @@ const Professor = require('../models/professor')
 // Setting up the router
 const router = new express.Router()
 
-router.post('/professor', async (req, res => {
+router.post('/professor', async (req, res) => {
     const professor = new Professor(req.body)
 
     try{
@@ -13,9 +13,9 @@ router.post('/professor', async (req, res => {
     }catch(e){
         res.status(400).send(e)
     }
-}))
+})
 
-router.post('/professors/login', async (req, res) => {
+router.post('/professor/login', async (req, res) => {
     try{
         const professor = await Professor.findByCredentials(req.body.email, req.body.password)
         res.send(professor)
@@ -67,7 +67,7 @@ router.patch('professor/:id', async (req, res) => {
             return res.status(404).send()
         }
     }catch(e){
-
+        res.status(500).send()
     }
 })
 

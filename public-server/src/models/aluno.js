@@ -2,7 +2,7 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
 
-const userSchema = new mongoose.Schema({
+const alunoSchema = new mongoose.Schema({
     // Defining the filds
         matricula: {
     // stating that matricula is a string
@@ -48,34 +48,34 @@ const userSchema = new mongoose.Schema({
         }
     })
 
-userSchema.statics.findByCredentials = async (email, password) => {
-    const user = await User.findOne({ email })
-    if(!user){
+alunoSchema.statics.findByCredentials = async (email, password) => {
+    const aluno = await Aluno.findOne({ email })
+    if(!aluno){
         throw new Error('Unable to login')
     }
    
-    const isMatch = await bcrypt.compare(password, user.password)
+    const isMatch = await bcrypt.compare(password, aluno.password)
   
     if(!isMatch){
         throw new Error('Unable to login')
     }
   
-    return user
+    return aluno
 }
     
 // Hash the plain text password before saving    
-userSchema.pre('save', async function (){
-    const user = this
+alunoSchema.pre('save', async function (next){
+    const aluno = this
 
-    if(user.isModified('password')) {
-        user.password = await bcrypt.hash(user.password, 8)
+    if(aluno.isModified('password')) {
+        aluno.password = await bcrypt.hash(aluno.password, 8)
     }
 
     next()
 })
 
     // Creating the User model
-const User = mongoose.model('users', userSchema)
+const Aluno = mongoose.model('alunos', alunoSchema)
 
 // Exporting the User model
-module.exports = User
+module.exports = Aluno

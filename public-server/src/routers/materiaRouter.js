@@ -4,7 +4,7 @@ const Materia = require('../models/materia')
 // Setting up the router
 const router = new express.Router()
 
-router.post('/materias', async (req, res => {
+router.post('/materias', async (req, res) => {
     const materia = new Materia(req.body)
 
     try{
@@ -13,7 +13,7 @@ router.post('/materias', async (req, res => {
     }catch(e){
         res.status(400).send(e)
     }
-}))
+})
 
 router.get('/materias', async (req, res) => {
     try{
@@ -58,7 +58,7 @@ router.patch('materias/:id', async (req, res) => {
             return res.status(404).send()
         }
     }catch(e){
-
+        res.status(500).send()
     }
 })
 

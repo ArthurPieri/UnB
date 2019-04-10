@@ -60,12 +60,14 @@ professorSchema.statics.findByCredentials = async (email, password) => {
         
 // Hash the plain text password before saving   
 
-professorSchema.pre('save', async function () {
+professorSchema.pre('save', async function (next) {
     const professor = this
 
     if(professor.isModified('password')){
         professor.password = await bcrypt.hash(professor.password, 8)
     }
+
+    next()
 })
 
 // Creating Professor model

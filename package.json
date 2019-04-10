@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node public-server/src/index.js",
     "proxy": "echo \"Montar isso aqui\"",
-    "dev": "nodemon public-server/src/index.js"
+    "dev": "nodemon --inspect public-server/src/index.js "
   },
   "repository": {
     "type": "git",

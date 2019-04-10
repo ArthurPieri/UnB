@@ -3,18 +3,18 @@ const express = require('express')
 require('./db/mongoose')
 
 // Setting up the Routers
-const UsersRouter = require('./routers/usersRouters')
+const alunosRouter = require('./routers/alunosRouters')
 const ProfessorRouter = require('./routers/professorRouter')
 const MateriaRouter = require('./routers/materiaRouter')
 
 // Setting up express
 const app = express()
 // This is letting express know that if ther is a PORT variable he will use that, if not, he will use 3000 as the default
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3001
 
 // Starting to use the routers
 app.use(express.json())
-app.use(UsersRouter)
+app.use(alunosRouter)
 app.use(ProfessorRouter)
 app.use(MateriaRouter)
 
