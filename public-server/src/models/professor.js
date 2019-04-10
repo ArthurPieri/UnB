@@ -43,8 +43,8 @@ const professorSchema = new mongoose.Schema({
         }
     })
 
-professorSchema.statics.findByCredentials = async (email, password) => {
-    const professor = await Professor.findOne({ email })
+professorSchema.statics.findByCredentials = async (matricula, password) => {
+    const professor = await Professor.findOne({ matricula })
     if(!professor){
         throw new Error('Unable to login')
     }

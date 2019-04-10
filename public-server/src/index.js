@@ -9,7 +9,7 @@ const MateriaRouter = require('./routers/materiaRouter')
 
 // Setting up express
 const app = express()
-// This is letting express know that if ther is a PORT variable he will use that, if not, he will use 3000 as the default
+// This is letting express know that if ther is a PORT variable he will use that, if not, he will use 3001 as the default
 const port = process.env.PORT || 3001
 
 // Starting to use the routers

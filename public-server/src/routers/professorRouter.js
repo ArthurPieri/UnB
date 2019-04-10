@@ -17,7 +17,7 @@ router.post('/professor', async (req, res) => {
 
 router.post('/professor/login', async (req, res) => {
     try{
-        const professor = await Professor.findByCredentials(req.body.email, req.body.password)
+        const professor = await Professor.findByCredentials(req.body.matricula, req.body.password)
         res.send(professor)
     }catch(e){
         res.status(400).send()
@@ -33,7 +33,7 @@ router.get('/professor', async (req, res) => {
     }
 })
 
-router.get('professor/:id', async (req, res) => {
+router.get('/professor/:id', async (req, res) => {
     const _id = req.params.id
     try{
     const professor = await Professor.findById(_id)
@@ -46,7 +46,7 @@ router.get('professor/:id', async (req, res) => {
     }
 })
 
-router.patch('professor/:id', async (req, res) => {
+router.patch('/professor/:id', async (req, res) => {
     const updates = Object.keys(req.body)
     const allowedUpdates = ['nomeCompleto', 'email', 'telefone', 'password', 'materias', 'matricula' ]
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
@@ -66,8 +66,24 @@ router.patch('professor/:id', async (req, res) => {
         if(!professor) {
             return res.status(404).send()
         }
+
+        res.send(professor)
     }catch(e){
         res.status(500).send()
+    }
+})
+
+router.delete('/professor/:id', async (req, res) => {
+    try {
+        const professor = await Professor.findByIdAndDelete(req.params.id)
+
+        if (!professor){
+            return res.status(404).send()
+        }
+
+        res.send(professor)
+    } catch (e) {
+        res.status(500).send(e)
     }
 })
 

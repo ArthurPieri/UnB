@@ -24,7 +24,7 @@ router.get('/materias', async (req, res) => {
     }
 })
 
-router.get('materias/:id', async (req, res) => {
+router.get('/materias/:id', async (req, res) => {
     const _id = req.params.id
     try{
     const materia = await Materia.findById(_id)
@@ -37,7 +37,7 @@ router.get('materias/:id', async (req, res) => {
     }
 })
 
-router.patch('materias/:id', async (req, res) => {
+router.patch('/materias/:id', async (req, res) => {
     const updates = Object.keys(req.body)
     const allowedUpdates = ['nomeCompleto', 'email', 'cpf', 'telefone', 'password', 'materias', 'matricula' ]
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
