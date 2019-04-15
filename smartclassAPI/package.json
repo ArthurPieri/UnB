@@ -1,13 +1,13 @@
 {
-  "name": "si1-2019",
+  "name": "smartclassapi",
   "version": "1.0.0",
   "description": "\"Software desenvolvido para a disciplina de SI na UnB 1.2019\"",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node public-server/src/index.js",
+    "start": "node src/index.js",
     "proxy": "echo \"Montar isso aqui\"",
-    "dev": "nodemon --inspect public-server/src/index.js "
+    "dev": "nodemon --inspect src/index.js "
   },
   "repository": {
     "type": "git",
@@ -16,9 +16,9 @@
   "author": "\"Arthur Pieri, Jonatas Gomes, Lucas Miranda, Matheus Velaci e Victor Guedes\"",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ArthurPieri/SI1-2019/issues"
+    "url": "https://github.com/ArthurPieri/smartclass/issues"
   },
-  "homepage": "https://github.com/ArthurPieri/SI1-2019#readme",
+  "homepage": "https://github.com/ArthurPieri/smartclass#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "express": "^4.16.4",

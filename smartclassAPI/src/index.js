@@ -20,7 +20,7 @@ app.use(MateriaRouter)
 
 // Starting the app
 app.listen(port, () => {
-    console.log('Server is up on port ' + port)
+    console.log('Server is up on http://127.0.0.1:' + port)
 })
 
 //Cookie MW
