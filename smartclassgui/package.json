@@ -4,8 +4,7 @@
   "description": "A smart tool for smart classes",
   "productName": "Smart Class",
   "cordovaId": "org.cordova.quasar.app",
-  "author": "Victor Guedes <victorgcramos@gmail.com>",
-  "private": true,
+  "author": "\"Arthur Pieri, Jonatas Gomes, Lucas Miranda, Matheus Velaci e Victor Guedes\"",
   "scripts": {
     "lint": "eslint --ext .js,.vue src",
     "test": "echo \"No test specified\" && exit 0",

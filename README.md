@@ -14,6 +14,11 @@ Smartclass é um projeto da Disciplina de Sistemas de Informação da Universida
 
     **Recomenda-se o uso de um editor de texto adequado para desenvolvimento**: [VSCode](https://code.visualstudio.com/docs/setup/setup-overview), [Atom](https://flight-manual.atom.io/getting-started/sections/installing-atom/)...
 
+## Estrutura
+**smartclassAPI**: API do projeto. Nela estará o backend, e todos os handlers das requests que iremos fazer. É ele o responsável por fazer as comunicações com o BD.
+
+**smartclassGUI**: GUI (guest user interface) do projeto. É ela que vai ser a interface gráfica pro usuário trabalhar e manusear os dados. Ela é feita usando como base o material-design.
+
 ## Fluxo de Trabalho
 
 Todas as mudanças feitas devem ser implementadas a partir de uma branch com o nome que descreve, de forma simples, o que a implementação representa.
