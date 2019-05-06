@@ -78,7 +78,7 @@ studentSchema.methods.generateAuthToken = async function () {
     // Setting this as a variable to make easier
     const student = this
     // Creating the token with JsonWebToken
-    const token = jwt.sign({ _id: student._id.toString() }, 'process.env.JWT_SECRET')
+    const token = jwt.sign({ _id: student._id.toString() }, process.env.JWT_SECRET)
 
     // Adding the token to the users tokens array
     student.tokens = student.tokens.concat({ token })
