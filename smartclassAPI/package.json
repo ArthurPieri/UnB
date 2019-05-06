@@ -4,10 +4,10 @@
   "description": "\"Software desenvolvido para a disciplina de SI na UnB 1.2019\"",
   "main": "index.js",
   "scripts": {
-    "test": "env-cmd ./config/test.env jest --watch --runInBand",
+    "test": "env-cmd jest --watch --runInBand",
     "start": "node src/index.js",
     "proxy": "echo \"Montar isso aqui\"",
-    "dev": "env-cmd ./config/dev.env nodemon src/index.js "
+    "dev": "env-cmd nodemon src/index.js "
   },
   "repository": {
     "type": "git",
@@ -34,7 +34,7 @@
   "devDependencies": {
     "env-cmd": "^9.0.1",
     "jest": "^24.8.0",
-    "nodemon": "^1.18.11",
+    "nodemon": "^1.19.0",
     "supertest": "^4.0.2"
   }
 }
