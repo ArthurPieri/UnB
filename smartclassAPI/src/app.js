@@ -3,8 +3,7 @@ const express = require('express')
 require('./db/mongoose')
 
 // Setting up the Routers
-const studentRouter = require('')
-    // add other routers
+const studentRouter = require('./routers/studentRouters')
 // Setting up express
 const app = express()
 
