@@ -8,19 +8,19 @@ const jwt = require('jsonwebtoken')
 const studentSchema = new mongoose.Schema({
     name: {
         type: String,
-//        required: [true, 'Nome é obrigatório'],
+        required: [true, 'Nome é obrigatório'],
         trim: true
     },
     enrollment: {
         type: String,
-//        required: [true, 'Matrícula é obrigatório'],
+        required: [true, 'Matrícula é obrigatório'],
         trim: true,
         unique: true
     },
     email: {
         type: String,
         unique: true,
-//        required: [true, 'Email é obrigatório'],
+        required: [true, 'Email é obrigatório'],
         trim: true,
         lowercase: true,
         validate(value){
@@ -31,18 +31,17 @@ const studentSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-//        required: [true, 'Senha é obrigatório'],
+        required: [true, 'Senha é obrigatório'],
         trim: true,
         minlength: 8
     },
     tokens: [{
-        token: String,
-//        required: [true, 'Token invalido']
+        token: String
     }],
     profilePic: {
         type: Buffer
     },
-/*    subjects:[{
+    subjects:[{
         subject: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Subject',
@@ -54,7 +53,7 @@ const studentSchema = new mongoose.Schema({
             type: Boolean,
             default: false
         }
-    }] */
+    }]
 })
 
 // Removing password, tokens and profilePic from the response object
