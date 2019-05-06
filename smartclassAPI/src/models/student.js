@@ -8,19 +8,19 @@ const jwt = require('jsonwebtoken')
 const studentSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true,
+//        required: [true, 'Nome é obrigatório'],
         trim: true
     },
     enrollment: {
         type: String,
-        required: true,
+//        required: [true, 'Matrícula é obrigatório'],
         trim: true,
         unique: true
     },
     email: {
         type: String,
         unique: true,
-        required: true,
+//        required: [true, 'Email é obrigatório'],
         trim: true,
         lowercase: true,
         validate(value){
@@ -31,29 +31,30 @@ const studentSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true,
+//        required: [true, 'Senha é obrigatório'],
         trim: true,
         minlength: 8
     },
     tokens: [{
         token: String,
-        required: true
+//        required: [true, 'Token invalido']
     }],
     profilePic: {
         type: Buffer
     },
-    subjects:[{
+/*    subjects:[{
         subject: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Subject',
         },
         day: {
-            type: Date
+            type: String
         },
         attendance: {
-            type: Boolean
+            type: Boolean,
+            default: false
         }
-    }]
+    }] */
 })
 
 // Removing password, tokens and profilePic from the response object
@@ -77,7 +78,7 @@ studentSchema.methods.generateAuthToken = async function () {
     // Setting this as a variable to make easier
     const student = this
     // Creating the token with JsonWebToken
-    const token = jwt.sign({ _id: student._id.toString() }, process.env.JWT_SECRET)
+    const token = jwt.sign({ _id: student._id.toString() }, 'process.env.JWT_SECRET')
 
     // Adding the token to the users tokens array
     student.tokens = student.tokens.concat({ token })
