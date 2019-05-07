@@ -69,4 +69,34 @@ router.get('/students/me', auth, async (req, res) => {
     res.send(req.user)
 })
 
+// Private router to edit student
+router.patch('/students/me', auth, async (req, res) => {
+    const updates = Object.keys(req.body)
+    const allowedUpdates = ['name', 'email', 'password']
+    const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
+
+    if (!isValidOperation) {
+        return res.status(400).send('Erro: Atualizações inválidas!')
+    }
+
+    try{
+        updates.forEach((update) => req.user[update] = req.body[update])
+        await req.user.save()
+        res.send(req.user)
+    }catch(e){
+        res.status(400).send()
+    }
+})
+
+// Private router to delete student
+router.delete('/students/me', auth, async (req, res) => {
+    try{
+        await req.user.remove()
+        sendFarewellEmail(req.user.email, req.user.name)
+        res.send(req.user)
+    }catch(e){
+        res.status(500).send(e)
+    }
+})
+
 module.exports = router
