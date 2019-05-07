@@ -41,15 +41,32 @@ router.post('/students/login', async (req, res) => {
 // Private router for logout
 router.post('/students/logout', auth, async (req, res) => {
     try{
-        req.student.tokens = req.student.tokens.filter((token) => {
+        req.user.tokens = req.user.tokens.filter((token) => {
             return token.token !== req.token
         })
-        await req.student.save()
+        await req.user.save()
 
         res.send()
     }catch(e){
         res.status(500).send()
     }
+})
+
+// Private router for logout all sessions
+router.post('/students/logoutAll', auth, async (req, res) => {
+    try{
+        req.user.tokens = []
+        await req.user.save()
+
+        res.send()
+    }catch(e){
+        res.status(500).send()
+    }
+})
+
+// Private router to get profile info
+router.get('/students/me', auth, async (req, res) => {
+    res.send(req.user)
 })
 
 module.exports = router
