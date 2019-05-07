@@ -13,13 +13,19 @@ const {
     sendFarewellEmail
 } = require('../emails/account')
 
+// ------------------------------------------------------
+//  CRUD STUDENT
+// ------------------------------------------------------
+
 // Public router for signin in a new Student
 router.post('/students', async (req, res) => {
-        const student = new Student(req.body)
+    const student = new Student(req.body)
 
     try{
         await student.save()
+        // It is the function from acount.js to send emails
         sendWelcomeEmail(student.email, student.name)
+        // It is the method defined on the student model
         const token = await student.generateAuthToken()
         res.status(201).send({ student, token })
     }catch(e) {
@@ -30,6 +36,7 @@ router.post('/students', async (req, res) => {
 // Public router for the student to login
 router.post('/students/login', async (req, res) => {
     try{
+        // It is the function defined on the student model
         const student = await Student.findByCredentials(req.body.enrollment, req.body.password)
         const token = await student.generateAuthToken()
         res.send({ student, token })
@@ -98,5 +105,66 @@ router.delete('/students/me', auth, async (req, res) => {
         res.status(500).send(e)
     }
 })
+
+// ------------------------------------------------------
+//  PROFILE PIC STUDENT
+// ------------------------------------------------------
+
+
+// Setting multer to deal with the images
+const upload = multer({
+    limits: {
+        fileSize: 2048000
+    },
+    fileFilter(req, file, cb){
+        if(!file.originalname.match(/\.(jpg|jpeg|png)$/)){
+            return cb(new Error('Por favor envie uma imagem'))
+        }
+
+        cb(undefined, true)
+    }
+})
+
+// Private router to upload the profile pic
+router.post('/students/me/profilePic', auth, upload.single('profilePic'), async (req, res) => {
+    const buffer = await sharp(req.file.buffer).resize({ width: 250, height: 250 }).png().toBuffer()
+    req.user.profilePic = buffer
+    await req.user.save()
+    res.send()
+}, (error, req, res, next) => {
+    res.status(400).send({error: error.message})
+})
+
+// Private router to delete the profile pic
+router.delete('/students/me/profilePic', auth, async (req, res) => {
+    try{
+        req.user.profilePic = undefined
+        await req.user.save()
+        res.send()    
+    }catch(e){
+        res.status(500).send(e)
+    }
+})
+
+// Public Router to get a Students profile Pic
+router.get('/students/:id/profilePic', async (req, res) => {
+    try{
+        const student = await Student.findById(req.params.id)
+
+        if(!user || !user.avatar){
+            throw new Error()
+        }
+
+        res.set('Content-type', 'image/png')
+        res.send(user.avatar)
+    }catch(e){
+        res.status(404).send()
+    }
+})
+
+// ------------------------------------------------------
+//  SUBJECTS FOR STUDENTS
+// ------------------------------------------------------
+
 
 module.exports = router
