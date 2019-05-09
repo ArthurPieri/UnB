@@ -16,22 +16,20 @@ const subjectSchema = new mongoose.Schema({
     class: {
         type: String,
         maxlength: 2,
-        trim: true
+        trim: true,
+        required: [true, 'Por favor, informe a turma']
     },
     address: [{
         address: {
             type: String,
-            required: true,
             trim: true
         },
         latitude: {
             type: String,
-            required: true,
             trim: true
         },
         longitude: {
             type: String,
-            required: true,
             trim: true
         }
     }],
@@ -48,6 +46,23 @@ const subjectSchema = new mongoose.Schema({
     enrollmentKey:{
         type: String
     }
+})
+
+// Setting up the method to verify if the subject already exists
+subjectSchema.pre('save', async function (next) {
+    const subject = this
+    const subj = await Subject.findOne({
+        name: subject.name,
+        registrationCode: subject.registrationCode,
+        class: subject.class,
+        semester: subject.semester
+    })
+
+    if(subj){
+        throw new Error()
+    }
+
+    next()    
 })
 
 const Subject = mongoose.model('Subjects', subjectSchema)
