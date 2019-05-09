@@ -3,7 +3,6 @@ const Subject = require('../models/subject')
 // Getting the Auth middleware
 const studentAuth = require('../middleware/studentAuth')
 const profAuth = require('../middleware/profAuth')
-const auth = require('../middleware/auth')
 // Setting up a new router
 const router = new express.Router()
 
@@ -12,7 +11,7 @@ const router = new express.Router()
 // ------------------------------------------------------
 
 // Private Add a new subject
-// Reminder to change autho to profAuth
+// Reminder to change auth!
 router.post('/subjects', async(req, res) => {
     const subject = new Subject(req.body)
 
@@ -23,5 +22,18 @@ router.post('/subjects', async(req, res) => {
         res.status(400).send(e)
     }
 })
+
+// Private get all subjects
+// Reminder to change auth!
+router.get('/subjects/all', async (req, res) => {   
+    try{
+        const subjects = await Subject.find({})
+        res.send(subjects)
+    }catch(e){
+        res.status(500).send()
+    }
+    
+})
+
 
 module.exports = router
