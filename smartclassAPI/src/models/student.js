@@ -92,7 +92,7 @@ studentSchema.methods.generateAuthToken = async function () {
 studentSchema.statics.findByCredentials = async (enrollment, password) => {
     // Searching the user by the enrollment provided
     const student = await Student.findOne({ enrollment })
-    // It the user is not found
+    // If the user is not found
     if(!student){
         throw new Error('Matrícula ou senha invalida(s)')
     }
