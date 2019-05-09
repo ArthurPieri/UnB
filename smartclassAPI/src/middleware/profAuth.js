@@ -1,6 +1,6 @@
 // Requiring Jsonweb token and student auth
 const jwt = require('jsonwebtoken')
-const Prof = require('../models/prof')
+const Prof = require('../models/professor')
 
 // Setting up the auth function
 const auth = async (req, res, next) => {
