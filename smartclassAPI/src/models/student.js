@@ -42,17 +42,19 @@ const studentSchema = new mongoose.Schema({
         type: Buffer
     },
     subjects:[{
-        subject: {
+        _id: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Subject',
+            ref: 'Subject'
         },
-        day: {
-            type: String
-        },
-        attendance: {
-            type: Boolean,
-            default: false
-        }
+        attendance: [{
+            day: {
+                type: String
+            },
+            attendance: {
+                type: Boolean,
+                default: false
+            }    
+        }]
     }]
 })
 

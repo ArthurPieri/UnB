@@ -168,7 +168,22 @@ router.get('/students/:id/profilePic', async (req, res) => {
 
 // Private Get all 'my' subjects
 router.get('/students/subjects', auth, async (req, res) => {
-    
+    const match = {}
+    const sort = {}
+
+    if (req.query.sortBy) {
+        const parts = req.query.sortBy.split(':')
+        sort[parts[0]] = parts[1] === 'desc' ? -1 : 1
+    }
+
+    try{
+        await req.user.populate('subjects')
+        .execPopulate()
+        res.send(req.user)
+    }catch(e){
+        res.status(404).send(e)
+    }
+
 })
 
 module.exports = router
