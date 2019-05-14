@@ -4,7 +4,7 @@ const multer = require('multer')
 const sharp = require('sharp')
 // Requiring the student model and auth
 const Student = require('../models/student')
-const auth = require('../middleware/studentAuth')
+const auth = require('../middleware/auth')
 // Setting router as an express router
 const router = new express.Router()
 // Requiring all the emails for that user

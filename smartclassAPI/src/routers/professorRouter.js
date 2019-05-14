@@ -1,4 +1,5 @@
 const express = require('express')
+const auth = require('../middleware/auth')
 // Getting the professor model
 const Professor = require('../models/professor')
 // Setting up the router
