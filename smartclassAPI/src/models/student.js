@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const Subject = require('./subject')
 
 // Setting up the student Schema for mongoose
 const studentSchema = new mongoose.Schema({

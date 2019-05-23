@@ -79,7 +79,7 @@ router.get('/students/me', auth, async (req, res) => {
 // Private router to edit student
 router.patch('/students/me', auth, async (req, res) => {
     const updates = Object.keys(req.body)
-    const allowedUpdates = ['name', 'email', 'password', 'subjects']
+    const allowedUpdates = ['name', 'email', 'password']
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
 
     if (!isValidOperation) {
@@ -185,5 +185,13 @@ router.get('/students/subjects', auth, async (req, res) => {
     }
 
 })
+
+// Private Router add subject
+// router.patch('/students/subjects', auth, async (req, res) => {
+//     req.user.subjects = req.body.subjects
+
+//     await req.user.save()
+//     res.send(req.user.subjects)
+// })
 
 module.exports = router
