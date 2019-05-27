@@ -177,7 +177,7 @@ router.get('/students/subjects', auth, async (req, res) => {
     }
 
     try{
-        await req.user.populate('subjects.subject')
+        await req.user.populate('subjects')
         .execPopulate()
         res.send(req.user)
     }catch(e){
