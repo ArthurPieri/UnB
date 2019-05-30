@@ -10,7 +10,7 @@ const router = new express.Router()
 //  CRUD SUBJECT
 // ------------------------------------------------------
 
-// Private Add a new subject
+// Private CREATE a new subject
 // Reminder to change auth!
 router.post('/subjects', async(req, res) => {
     const subject = new Subject(req.body)
@@ -23,7 +23,7 @@ router.post('/subjects', async(req, res) => {
     }
 })
 
-// Private get all subjects
+// Private GET all subjects
 // Reminder to change auth!
 router.get('/subjects/all', async (req, res) => {   
     try{
@@ -35,5 +35,20 @@ router.get('/subjects/all', async (req, res) => {
     
 })
 
+// Private GET one Subject
+// Reminder to change auth!
+router.get('/subjects/:id', async (req, res) => {
+    const _id = req.params.id
+    try{
+        const subject = await Subject.findOne({ _id})
+
+        if (!subject){
+            return res.status(404).send()
+        }
+        res.send(subject)
+    }catch(e){
+        res.status(500).send()
+    }
+})
 
 module.exports = router

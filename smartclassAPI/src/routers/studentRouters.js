@@ -3,6 +3,7 @@ const express = require('express')
 const multer = require('multer')
 const sharp = require('sharp')
 // Requiring the student model and auth
+const Subject = require('../models/subject')
 const Student = require('../models/student')
 const auth = require('../middleware/auth')
 // Setting router as an express router
@@ -79,7 +80,7 @@ router.get('/students/me', auth, async (req, res) => {
 // Private router to edit student
 router.patch('/students/me', auth, async (req, res) => {
     const updates = Object.keys(req.body)
-    const allowedUpdates = ['name', 'email', 'password']
+    const allowedUpdates = ['name', 'email', 'password', 'subjects']
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
 
     if (!isValidOperation) {
@@ -166,25 +167,27 @@ router.get('/students/:id/profilePic', async (req, res) => {
 //  SUBJECTS FOR STUDENTS
 // ------------------------------------------------------
 
+// Patch students/subjcets
+// TO-DO
+
 // Private Get all 'my' subjects
-router.get('/students/subjects', auth, async (req, res) => {
-    const match = {}
-    const sort = {}
+// Robinha brilha muito no curitcha
+// router.get('/students/subjects', auth, async (req, res) => {
+//     const match = {}
+//     const sort = {}
 
-    if (req.query.sortBy) {
-        const parts = req.query.sortBy.split(':')
-        sort[parts[0]] = parts[1] === 'desc' ? -1 : 1
-    }
+//     if (req.query.sortBy) {
+//         const parts = req.query.sortBy.split(':')
+//         sort[parts[0]] = parts[1] === 'desc' ? -1 : 1
+//     }
 
-    try{
-        await req.user.populate('subjects')
-        .execPopulate()
-        res.send(req.user)
-    }catch(e){
-        res.status(404).send(e)
-    }
+//     try{
 
-})
+//     }catch(e){
+//         res.status(404).send(e)
+//     }
+
+// })
 
 // Private Router add subject
 // router.patch('/students/subjects', auth, async (req, res) => {
