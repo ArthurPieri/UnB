@@ -50,11 +50,7 @@ const studentSchema = new mongoose.Schema({
         attendance: [{
             day: {
                 type: String
-            },
-            attendance: {
-                type: Boolean,
-                default: false
-            }    
+            }
         }]
     }]
 })
