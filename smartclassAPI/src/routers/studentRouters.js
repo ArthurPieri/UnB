@@ -167,10 +167,8 @@ router.get('/students/:id/profilePic', async (req, res) => {
 //  SUBJECTS FOR STUDENTS
 // ------------------------------------------------------
 
-// Patch students/subjcets
-// TO-DO
-// Private patch subject
-router.patch('/students/me/subject/:id', auth, async (req, res) => {
+// Private post subject
+router.post('/students/me/subject/:id', auth, async (req, res) => {
     let subjects = req.user.subjects
     let populatedSubjects = []
 
@@ -185,7 +183,7 @@ router.patch('/students/me/subject/:id', auth, async (req, res) => {
     try{
         req.user.subjects.push({_id:req.params.id})
         req.user.save()
-        res.status(200).send(req.user)
+        res.status(204).send(req.user)
     }catch(e){
         res.status(500).send()
     }
@@ -210,12 +208,14 @@ router.get('/students/me/subjects', auth, async (req, res) => {
 
 })
 
-// Private Router add subject
-// router.patch('/students/subjects', auth, async (req, res) => {
-//     req.user.subjects = req.body.subjects
-
-//     await req.user.save()
-//     res.send(req.user.subjects)
+// router.delete('/students/me/subject/:id', auth, async(req, res) => {
+//     try{
+//         req.user.subjects.filter(sub => sub != req.params.id)
+//         req.user.save()
+//         res.status(200).send(req.user)
+//     } catch(e){
+//         res.status(500).send()
+//     }
 // })
 
 module.exports = router
