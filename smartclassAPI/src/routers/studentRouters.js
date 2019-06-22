@@ -80,7 +80,7 @@ router.get('/students/me', auth, async (req, res) => {
 // Private router to edit student
 router.patch('/students/me', auth, async (req, res) => {
     const updates = Object.keys(req.body)
-    const allowedUpdates = ['name', 'email', 'password', 'subjects']
+    const allowedUpdates = ['name', 'email', 'password']
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
 
     if (!isValidOperation) {
@@ -152,12 +152,12 @@ router.get('/students/:id/profilePic', async (req, res) => {
     try{
         const student = await Student.findById(req.params.id)
 
-        if(!user || !user.avatar){
+        if(!student || !student.avatar){
             throw new Error()
         }
 
         res.set('Content-type', 'image/png')
-        res.send(user.avatar)
+        res.send(student.avatar)
     }catch(e){
         res.status(404).send()
     }
@@ -169,25 +169,46 @@ router.get('/students/:id/profilePic', async (req, res) => {
 
 // Patch students/subjcets
 // TO-DO
+// Private patch subject
+router.patch('/students/me/subject/:id', auth, async (req, res) => {
+    let subjects = req.user.subjects
+    let populatedSubjects = []
+
+    populatedSubjects = subjects.map((sub) => {
+        return sub._id
+    })
+
+    if(populatedSubjects.toString().includes(req.params.id)){
+        return res.status(400).send('Erro: Matéria já cadastrada')
+    }
+
+    try{
+        req.user.subjects.push({_id:req.params.id})
+        req.user.save()
+        res.status(200).send(req.user)
+    }catch(e){
+        res.status(500).send()
+    }
+})
+
 
 // Private Get all 'my' subjects
-// Robinha brilha muito no curitcha
-// router.get('/students/subjects', auth, async (req, res) => {
-//     const match = {}
-//     const sort = {}
+router.get('/students/me/subjects', auth, async (req, res) => {
+    try {
+        const student = await Student.findById(req.user._id)
+        let subjects = student.subjects
+        let populatedSubjects = []
 
-//     if (req.query.sortBy) {
-//         const parts = req.query.sortBy.split(':')
-//         sort[parts[0]] = parts[1] === 'desc' ? -1 : 1
-//     }
+        populatedSubjects = subjects.map(async function (sub) {
+            return Subject.findById(sub._id) 
+        })
 
-//     try{
+        res.send(await Promise.all(populatedSubjects))
+    } catch (e) {
+        res.status(500).send()
+    }
 
-//     }catch(e){
-//         res.status(404).send(e)
-//     }
-
-// })
+})
 
 // Private Router add subject
 // router.patch('/students/subjects', auth, async (req, res) => {
