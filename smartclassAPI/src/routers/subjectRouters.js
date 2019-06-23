@@ -94,31 +94,20 @@ router.delete('/subjects/:id', async (req, res) => {
 
 // TO DO
 router.get('/subjects/:id/code', profAuth, async (req, res) => {
-    console.log('Entrou na rota')
     try {
-        console.log('Entrou no try')
         const subject = await Subject.findById(req.params.id)
-        
-        console.log('Achou a subject')
 
         if(!subject){
             return res.status(404).send()
         }
 
-        const code = subject.generateCode()
-        
-        console.log('Gerou o código', code)
-        res.send(await Promise.all(code))
+        const code = await subject.generateCode()
+
+        res.send(code)
     }catch (e) {
         return res.status(500).send(e)
     }
 })
-// #### Get Subject code  
-// Tipo de request: GET 
-// Uri: /subjects/:id/code
-// Header: authToken (Professor)
-// Body: none
-// Status code: 200, 400, 500
 
 // TO DO
 // #### Add new Professor to subject  

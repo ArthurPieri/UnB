@@ -73,7 +73,8 @@ subjectSchema.pre('save', async function (next) {
         name: subject.name,
         registrationCode: subject.registrationCode,
         class: subject.class,
-        semester: subject.semester
+        semester: subject.semester,
+        authCode: subject.authCode
     })
 
     if(subj){
@@ -86,8 +87,10 @@ subjectSchema.pre('save', async function (next) {
 // TO DO
 // Generate code for attendance 
 subjectSchema.methods.generateCode = async function () {
-    this.authCode = Math.random().toString(36).slice(-8);
-    return await Promise.all(this.authCode)
+    const code = Math.random().toString(36).slice(-8)
+    this.authCode = code
+    await this.save()
+    return this.authCode
 }
 
 const Subject = mongoose.model('Subjects', subjectSchema)
