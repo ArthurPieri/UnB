@@ -20,8 +20,12 @@ router.post('/professor', async (req, res) => {
 
     try{
         await professor.save()
-        res.status(201).send(professor)
-    }catch(e){
+        // It is the function from acount.js to send emails
+        sendWelcomeEmail(professor.email, professor.name)
+        // It is the method defined on the student model
+        const token = await professor.generateAuthToken()
+        res.status(201).send({ professor, token })
+    }catch(e) {
         res.status(400).send(e)
     }
 })
@@ -30,10 +34,12 @@ router.post('/professor', async (req, res) => {
 // Login Professor
 router.post('/professor/login', async (req, res) => {
     try{
+        // It is the function defined on the student model
         const professor = await Professor.findByCredentials(req.body.enrollment, req.body.password)
-        res.send(professor)
+        const token = await professor.generateAuthToken()
+        res.send({ professor, token })
     }catch(e){
-        res.status(400).send(e)
+        res.status(400).send()
     }
 })
 
