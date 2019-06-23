@@ -2,6 +2,7 @@
 const express = require('express')
 const multer = require('multer')
 const sharp = require('sharp')
+const mongoose = require('mongoose')
 // Requiring the student model and auth
 const Subject = require('../models/subject')
 const Student = require('../models/student')
@@ -195,13 +196,29 @@ router.get('/students/me/subjects', auth, async (req, res) => {
     try {
         const student = await Student.findById(req.user._id)
         let subjects = student.subjects
-        let populatedSubjects = []
-
-        populatedSubjects = subjects.map(async function (sub) {
-            return Subject.findById(sub._id) 
+        let query = {
+            _id: {
+                $in: []
+            }
+        };
+        let query2 = {
+            _id: {
+                $in: [
+                    mongoose.Types.ObjectId('5d106a69d9000bfaf27edd69'),
+                    mongoose.Types.ObjectId('5d106649287503f83b499687')
+                ]
+            }
+        };
+        subjects.forEach(x => {
+            query._id.$in.push(mongoose.Types.ObjectId(x._id))
         })
-
-        res.send(await Promise.all(populatedSubjects))
+        let x = Subject.find(query, (err, resp) => {
+            if (err) {
+                res.status(500).send(err)
+            } else {
+                res.status(200).send(resp)
+            }
+        });
     } catch (e) {
         res.status(500).send()
     }

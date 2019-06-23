@@ -53,12 +53,10 @@ const subjectSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    days:[{
-        day:{
-        type: String,
+    days: {
+        type: Array,
         required: true
-        }
-    }],
+    },
     authCode:{
         type: String
     }

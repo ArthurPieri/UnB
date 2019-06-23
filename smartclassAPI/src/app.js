@@ -1,4 +1,4 @@
-// Setting up express and mongoose
+// Setting up express, cors and mongoose
 const express = require('express')
 require('./db/mongoose')
 
@@ -11,6 +11,11 @@ const app = express()
 
 // Starting to use the routers
 app.use(express.json())
+app.use((req, res, next) => {
+  res.append('Access-Control-Allow-Origin', ['*']);
+  res.append('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
 app.use(studentRouter)
 app.use(subjectRouter)
 app.use(profRouter)

@@ -1,10 +1,14 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import aluno from "./modules/aluno";
+import student from "./modules/student";
+import professor from "./modules/professor";
+import subject from "./modules/subject";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
-    aluno
+    student,
+    professor,
+    subject
   }
 });

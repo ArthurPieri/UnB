@@ -4,32 +4,22 @@
       Página Inicial
     </h4>
     <br>
-    <q-card class="my-card">
-      <q-item>
-        <q-item-section avatar>
-          <q-avatar>
-            <img src="https://ui-avatars.com/api/?background=0D8ABC&color=fff&name=Sistemas de Informação">
-          </q-avatar>
-        </q-item-section>
-
-        <q-item-section>
-          <q-item-label>Sistemas de Informação</q-item-label>
-          <q-item-label caption>Prof: Fernanda Lima</q-item-label>
-        </q-item-section>
-      </q-item>
-      <q-card-section>
-        <p>
-          Aula de Sistemas de Informação
-        </p>
-        <p>
-          (AQUI SERÃO COLOCADAS AS INFORMAÇÕES SOBRE O CURSO)
-        </p>
-      </q-card-section>
-      <q-card-actions>
-        <q-btn flat>Confirmar Presença</q-btn>
-        <q-btn flat>Mais Informações</q-btn>
-      </q-card-actions>
-    </q-card>
+    <div v-if="!loading">
+      <div v-if="subjects.length > 0">
+        <subject-card
+          v-for="(subject, i) of studentSubjects"
+          :key="i"
+          :subject="subject"
+          :enrolled="true"
+          cardType="class"
+        />
+      </div>
+      <div v-else>
+        Você ainda não se matriculou em nenhuma disciplina!
+        <br/>
+        <q-btn @click="$router.replace('/matricula')"> Matricular em uma Disciplina </q-btn>
+      </div>
+    </div>
   </q-page>
 </template>
 
@@ -37,8 +27,37 @@
 </style>
 
 <script>
+import { mapGetters } from "vuex";
+import { STUDENT_SUBJECTS, STUDENT } from "../store/getters";
+import SubjectCard from "../components/SubjectCard";
 export default {
-  name: "PageIndex"
+  name: "PageIndex",
+  components: {
+    SubjectCard
+  },
+  data () {
+    return {
+      loading: true,
+      subjects: []
+    };
+  },
+  async mounted () {
+    await this.$store.dispatch("getStudentSubjects");
+    console.log("STUDENT SUBJECTS", this.studentSubjects);
+    this.subjects = this.studentSubjects || [];
+    this.loading = false;
+  },
+  computed: {
+    ...mapGetters([
+      STUDENT_SUBJECTS,
+      STUDENT
+    ])
+  },
+  watch: {
+    student () {
+      console.log("Student", this.student);
+    }
+  }
 };
 </script>
 <style scoped>
