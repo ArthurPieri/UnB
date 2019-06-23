@@ -13,7 +13,7 @@ const auth = async (req, res, next) => {
         // Searching for the user in the database
         const student = await Student.findOne({ _id: decoded._id, 'tokens.token': token })
 
-        // If the user is not found, throw a new error
+        // If the student is not found, search for professor
         if(!student){
             const professor = await Prof.findOne({ _id: decoded._id, 'tokens.token': token })
 

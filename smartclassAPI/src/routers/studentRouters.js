@@ -205,7 +205,6 @@ router.get('/students/me/subjects', auth, async (req, res) => {
     } catch (e) {
         res.status(500).send()
     }
-
 })
 
 // TO-DO

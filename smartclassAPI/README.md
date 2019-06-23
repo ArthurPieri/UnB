@@ -252,9 +252,10 @@ Header: authToken
 Body: none
 Status code: 200, 500
 
-#### Get professor profile
+#### Get one professor profile
 Tipo de request: GET
-Uri: /professor/me
+Uri: /professor/:id
+Obs: id from the professor
 Header: authToken
 Body: none
 Status code: 200, 400
@@ -266,6 +267,7 @@ Header: authToken
 Body: {
      name,
      email,
+     telefone,
      password
 }
 Status code: 200, 400
@@ -303,3 +305,13 @@ Uri: /professor/me/subjects
 Header: authToken
 Body: none
 Status code: 200, 500
+
+#### Add new subject to Student 
+Tipo de request: POST
+Uri: /professor/me/subject/:id
+Obs: :id from the subject
+Header: authToken
+Body: {
+    _id: required
+}
+Status code: 204, 400, 500
