@@ -120,7 +120,7 @@ studentSchema.pre('save', async function (next){
 })
 
 // TO DO
-// Validate Code and remove class skip for the day
+// Validate Code, location and remove class skip for the day
 
 // Setting the mongoose Model for Student
 const Student = mongoose.model('Student', studentSchema)
