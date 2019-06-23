@@ -1,5 +1,6 @@
 // Requiring all the packages
 const mongoose = require('mongoose')
+const bcrypt = require('bcryptjs')
 
 // Setting up the subject schema for mongoose
 const subjectSchema = new mongoose.Schema({
@@ -59,8 +60,10 @@ const subjectSchema = new mongoose.Schema({
         type: String,
         required: true
         }
+    }],
+    authCode:{
+        type: String
     }
-    ]
 })
 
 // Setting up the method to verify if the subject already exists
@@ -81,7 +84,11 @@ subjectSchema.pre('save', async function (next) {
 })
 
 // TO DO
-// Generate code
+// Generate code for attendance 
+subjectSchema.methods.generateCode = async function () {
+    this.authCode = Math.random().toString(36).slice(-8);
+    return await Promise.all(this.authCode)
+}
 
 const Subject = mongoose.model('Subjects', subjectSchema)
 

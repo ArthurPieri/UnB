@@ -208,6 +208,8 @@ router.get('/students/me/subjects', auth, async (req, res) => {
 })
 
 // TO-DO
+// Private post attendance to subject
+
 // #### Post Subject attendance 
 // Tipo de request: POST
 // Uri: /students/me/subjects/:id
