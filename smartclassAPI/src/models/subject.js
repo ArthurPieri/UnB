@@ -45,7 +45,22 @@ const subjectSchema = new mongoose.Schema({
     },
     enrollmentKey:{
         type: String
+    },
+    startHour:{
+        type: Number,
+        required: true
+    },
+    endHour:{
+        type: Number,
+        required: true
+    },
+    days:[{
+        day:{
+        type: String,
+        required: true
+        }
     }
+    ]
 })
 
 // Setting up the method to verify if the subject already exists

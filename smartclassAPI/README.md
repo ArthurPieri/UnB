@@ -161,7 +161,12 @@ Body: {
         professor: _id
     ],
     semester: required,
-    enrollmentKey: String 
+    enrollmentKey: String,
+    startHour: required number,
+    endHour: required number,
+    days: [
+        day: required STRING
+    ]
 }
 Status code: 201, 400
 

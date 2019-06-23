@@ -1,10 +1,17 @@
 const express = require('express')
+const multer = require('multer')
+const sharp = require('sharp')
 const auth = require('../middleware/auth')
 const profAuth = require('../middleware/profAuth')
 // Getting the professor model
 const Professor = require('../models/professor')
 // Setting up the router
 const router = new express.Router()
+// Requiring all the emails for that user
+const {
+    sendWelcomeEmail,
+    sendFarewellEmail
+} = require('../emails/account')
 
 // Public Router
 // Create Professor
@@ -23,7 +30,7 @@ router.post('/professor', async (req, res) => {
 // Login Professor
 router.post('/professor/login', async (req, res) => {
     try{
-        const professor = await Professor.findByCredentials(req.body.matricula, req.body.password)
+        const professor = await Professor.findByCredentials(req.body.enrollment, req.body.password)
         res.send(professor)
     }catch(e){
         res.status(400).send(e)
@@ -225,6 +232,5 @@ router.get('/professor/me/subjects', auth, async (req, res) => {
     }
 
 })
-
 
 module.exports = router
