@@ -20,20 +20,18 @@ const subjectSchema = new mongoose.Schema({
         trim: true,
         required: [true, 'Por favor, informe a turma']
     },
-    address: [{
-        address: {
-            type: String,
-            trim: true
-        },
-        latitude: {
-            type: String,
-            trim: true
-        },
-        longitude: {
-            type: String,
-            trim: true
-        }
-    }],
+    address: {
+        type: String,
+        trim: true
+    },
+    latitude: {
+        type: String,
+        trim: true
+    },
+    longitude: {
+        type: String,
+        trim: true
+    },
     professors: [{
         professor: {
             type: mongoose.Schema.Types.ObjectId,
@@ -84,7 +82,6 @@ subjectSchema.pre('save', async function (next) {
     next()    
 })
 
-// TO DO
 // Generate code for attendance 
 subjectSchema.methods.generateCode = async function () {
     const code = Math.random().toString(36).slice(-8)
