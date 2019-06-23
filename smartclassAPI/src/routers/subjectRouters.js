@@ -92,5 +92,22 @@ router.delete('/subjects/:id', async (req, res) => {
     }
 })
 
+// TO DO
+// #### Get Subject code  
+// Tipo de request: GET 
+// Uri: /subjects/:id/code
+// Header: authToken (Professor)
+// Body: none
+// Status code: 200, 400, 500
+
+// TO DO
+// #### Add new Professor to subject  
+// Tipo de request: POST 
+// Uri: /subjects/:id/professor
+// Header: authToken (Professor)
+// Body: {
+//     professor: _id
+// }
+// Status code: 200, 400, 404, 500
 
 module.exports = router

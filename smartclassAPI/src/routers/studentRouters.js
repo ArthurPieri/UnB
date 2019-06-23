@@ -208,14 +208,25 @@ router.get('/students/me/subjects', auth, async (req, res) => {
 
 })
 
-// router.delete('/students/me/subject/:id', auth, async(req, res) => {
-//     try{
-//         req.user.subjects.filter(sub => sub != req.params.id)
-//         req.user.save()
-//         res.status(200).send(req.user)
-//     } catch(e){
-//         res.status(500).send()
-//     }
-// })
+// TO-DO
+// #### Post Subject attendance 
+// Tipo de request: POST
+// Uri: /students/me/subjects/:id
+// Obs: id from the subject
+// Header: authToken
+// Body: {
+//     code: required,
+//     lat: required (latitude)
+//     lng: required (longitude)
+// }
+// Status code: 200, 401, 500
+
+// TO DO
+// #### Read studet class skips
+// Tipo de request: GET 
+// Uri: /students/me/subjects/:id/attendance
+// Header: authToken
+// Body: none
+// Status code: 200, 400, 404, 500
 
 module.exports = router

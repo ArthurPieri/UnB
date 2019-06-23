@@ -88,5 +88,97 @@ router.delete('/professor/:id', async (req, res) => {
     }
 })
 
+// VERIFICAR E FAZER O QUE FALTA
+// ### Crud Professor 
+
+// #### Create professor 
+// Tipo de request: POST 
+// Uri: /professor
+// Header: none
+// Body: {
+//     name: required,
+//     enrollment: required ("matricula"),
+//     email: required,
+//     password: required,
+//     registrationCode: required
+// }
+// Status code: 201, 400
+
+// #### Login professor 
+// Tipo de request: POST
+// Uri: /professor/login
+// Header: none
+// Body: {
+//     enrollment: required,
+//     password: required
+// }
+// Status code: 200, 400
+
+// #### Logout professor 
+// Tipo de request: POST
+// Uri: /professor/logout
+// Header: authToken
+// Body: none
+// Status code: 200, 500
+
+// #### Logout all sessions professor 
+// Tipo de request: POST
+// Uri: /professor/logoutAll
+// Header: authToken
+// Body: none
+// Status code: 200, 500
+
+// #### Get professor profile
+// Tipo de request: GET
+// Uri: /professor/me
+// Header: authToken
+// Body: none
+// Status code: 200, 400
+
+// #### Edit professor 
+// Tipo de request: PATCH
+// Uri: /professor/me
+// Header: authToken
+// Body: {
+//      name,
+//      email,
+//      password
+// }
+// Status code: 200, 400
+
+// ### Professor profile pic
+
+// #### Upload PP 
+// Tipo de request: POST
+// Uri: /professor/me/profilePic
+// Header: authToken
+// Body: {
+//     buffer: ("image")
+// }
+// Status code:
+
+// #### Delete PP
+// Tipo de request: DELETE
+// Uri: /professor/me/profilePic
+// Header: authToken
+// Body: none
+// Status code: 204, 500
+
+// #### Get PP
+// Tipo de request: GET
+// Uri: /professor/:id/profilePic
+// Header: none
+// Body: none
+// Status code: 200, 404
+
+// ### Professor Subjects
+
+// #### Get all Professor's subjects
+// Tipo de request: GET
+// Uri: /professor/me/subjects
+// Header: authToken
+// Body: none
+// Status code: 200, 500
+
 
 module.exports = router

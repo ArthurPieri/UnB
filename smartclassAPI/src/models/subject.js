@@ -65,6 +65,9 @@ subjectSchema.pre('save', async function (next) {
     next()    
 })
 
+// TO DO
+// Generate code
+
 const Subject = mongoose.model('Subjects', subjectSchema)
 
 module.exports = Subject
