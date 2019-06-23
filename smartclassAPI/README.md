@@ -13,9 +13,14 @@
 #### Create Student 
 Tipo de request: POST 
 Uri: /students
-Header:
-Body:
-Status code:
+Header: 
+Body: {
+    name: required,
+    enrollment: required ("matricula"),
+    email: required,
+    password: required
+}
+Status code: 201, 400
 
 #### Login Student 
 Tipo de request: 
