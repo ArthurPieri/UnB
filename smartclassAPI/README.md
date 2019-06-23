@@ -127,3 +127,27 @@ Body: {
     lng: required (longitude)
 }
 Status code: 200, 401, 500
+
+### CRUD Subjects
+
+#### Create Subject
+Tipo de request: POST
+Uri: /subjects/
+Header: authToken (professor)
+Body: {
+    name: required,
+    registrationCode: required, 
+    class: required,
+    address: [
+        address: String,
+        latitude: String,
+        longitude: String
+    ],
+    professors: [
+        professor: _id
+    ],
+    semester: required,
+    enrollmentKey: String 
+}
+Status code: 201, 400
+
