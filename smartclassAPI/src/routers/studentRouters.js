@@ -233,7 +233,7 @@ router.post('/students/me/subjects/:id', auth, async (req, res) => {
 
         const getSecondsFromDay = (time) => {
             const d = new Date(time);
-            return d.getUTCHours() * 3600 + d.getMinutes() * 60 + d.getSeconds();
+            return d.getHours() * 3600 + d.getMinutes() * 60 + d.getSeconds();
         };
         const now = Date.now();
         const sec = getSecondsFromDay(now)
@@ -244,7 +244,7 @@ router.post('/students/me/subjects/:id', auth, async (req, res) => {
         stdntAttnd = stdntAttnd.filter(x => {
             const date = new Date(x);
             const time = new Date(now);
-            return date.getUTCFullYear() === time.getUTCFullYear() && date.getUTCDate() === time.getUTCDate() && time.getUTCMonth() === date.getUTCMonth()
+            return date.getFullYear() === time.getFullYear() && date.getDate() === time.getDate() && time.getMonth() === date.getMonth()
         })
         const {code, lat, lng} = req.body
         // console.log("chamou", subject, student);
