@@ -20,7 +20,7 @@
       </p>
     </q-card-section>
     <q-card-actions>
-      <q-btn v-if="$props.cardType === 'class'" flat>Confirmar Presença</q-btn>
+      <q-btn @click="prompt" v-if="$props.cardType === 'class'" flat>Confirmar Presença</q-btn>
       <q-btn @click="enroll" v-if="$props.cardType === 'enrollment'" flat>Matrícula</q-btn>
     </q-card-actions>
   </q-card>
@@ -49,7 +49,8 @@ export default {
   data () {
     return {
       imgUrl: `https://ui-avatars.com/api/?background=E2B7E2&color=fff&name=${this.$props.subject.name}`,
-      daysOfWeek
+      daysOfWeek,
+      coordinates: {}
     };
   },
   methods: {
@@ -59,7 +60,32 @@ export default {
       await this.$store.dispatch("enrollStudent", id);
       await this.$store.dispatch("fetchStudent");
     },
-    confirmAttendance () {
+    async confirmAttendance () {
+      this.$store.dispatch("registerAttendance", this.$props.subject._id);
+    },
+    prompt () {
+      this.$q.dialog({
+        message: "Informe o código da Aula",
+        prompt: {
+          model: "",
+          type: "text" // optional
+        },
+        cancel: true,
+        persistent: true
+      }).onOk(async data => {
+        let x = {
+          id: this.$props.subject._id,
+          code: data
+        };
+        try {
+          await this.$store.dispatch("registerAttendance", x);
+        } catch (error) {
+          this.$q.notify({
+            message: error.response ? error.response.data : "Erro ao confirmar presença",
+            color: "red"
+          });
+        }
+      });
     }
   }
 };

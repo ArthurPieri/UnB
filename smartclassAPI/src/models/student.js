@@ -47,11 +47,7 @@ const studentSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Subject'
         },
-        attendance: [{
-            day: {
-                type: String
-            }
-        }]
+        attendance: []
     }]
 })
 
@@ -120,27 +116,15 @@ studentSchema.pre('save', async function (next){
 })
 
 // Setting up the function to confirm attendance to class
-studentSchema.methods.confirmAttendance = async function (subjectId) {
-    const subjectsLength = this.subjects.length
-    const today = new Date()
-    const date = today.toString()
-    const newArray = []
-
-    for(i = 0; i < subjectsLength; i++){
-
-        if(this.subjects[i].id == subjectId) {
-            const daysLength = this.subjects[i].attendance.length
-
-            for(j = 0; j < daysLength; j++) {
-
-                if (!this.subjects[i].attendance[j].day.includes(date.slice(0, 15)))
-                    newArray.push(this.subjects[i].attendance[j].day)               
-            }
-        }
+studentSchema.methods.confirmAttendance = async function (subjectId, timestamp) {
+    const sb = JSON.parse(JSON.stringify(this.subjects.toObject()));
     
-        this.subjects[i].attendance = newArray
+    const at = await sb.filter(x => x._id === subjectId)[0];
+    for (const i in this.subjects) {
+        if (this.subjects[i]._id == subjectId) {
+            this.subjects[i].attendance.push(timestamp)
+        }
     }
-
     this.save()
 }
 

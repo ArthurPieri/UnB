@@ -9,6 +9,7 @@ export const DELETE_STUDENT = "deleteStudent";
 export const GET_STUDENT = "getStudent";
 export const FETCH_STUDENTS = "fetchStudents";
 export const FETCH_STUDENT = "fetchStudent";
+export const REGISTER_ATTENDANCE = "registerAttendance";
 
 // PROFESSOR
 export const LOGIN_PROFESSOR = "loginProfessor";

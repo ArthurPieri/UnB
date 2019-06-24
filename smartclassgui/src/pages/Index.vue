@@ -11,6 +11,7 @@
           :key="i"
           :subject="subject"
           :enrolled="true"
+          :coordinates="coordinates"
           cardType="class"
         />
       </div>
@@ -38,12 +39,12 @@ export default {
   data () {
     return {
       loading: true,
-      subjects: []
+      subjects: [],
+      coordinates: {}
     };
   },
   async mounted () {
     await this.$store.dispatch("getStudentSubjects");
-    console.log("STUDENT SUBJECTS", this.studentSubjects);
     this.subjects = this.studentSubjects || [];
     this.loading = false;
   },
@@ -52,11 +53,6 @@ export default {
       STUDENT_SUBJECTS,
       STUDENT
     ])
-  },
-  watch: {
-    student () {
-      console.log("Student", this.student);
-    }
   }
 };
 </script>

@@ -43,16 +43,7 @@ const actions = {
       throw error;
     }
   },
-  // list all student
-  [act.FETCH_STUDENTS]: async ({ commit }, query = "") => {
-    try {
-      let response = await api.getStudents(query);
-      commit(mut.STORE_STUDENTS, response.data);
-    } catch (error) {
-      throw error;
-    }
-  },
-  // list all student
+  // get logged in student
   [act.FETCH_STUDENT]: async ({ commit }) => {
     try {
       let response = await api.getStudent();
@@ -61,6 +52,7 @@ const actions = {
       throw error;
     }
   },
+  // Enroll student
   [act.ENROLL_STUDENT]: async ({ commit }, id) => {
     try {
       await api.enrollStudent(id);
@@ -72,6 +64,13 @@ const actions = {
     try {
       let response = await api.getStudentSubjects();
       commit(mut.STORE_STUDENT_SUBJECTS, response.data);
+    } catch (error) {
+      throw error;
+    }
+  },
+  [act.REGISTER_ATTENDANCE]: async ({ commit }, { id, code }) => {
+    try {
+      await api.registerAttendance(id, code);
     } catch (error) {
       throw error;
     }
@@ -89,6 +88,11 @@ const mutations = {
     await setOnStorage("authToken", token);
     state.student = student;
   },
+  [mut.STORE_STUDENT_LOGOUT]: async (state, { student, token }) => {
+    await setOnStorage("student", null);
+    await setOnStorage("authToken", null);
+    state.student = null;
+  },
   [mut.STORE_STUDENT_SUBJECTS]: (state, studentSubjects) => {
     setOnStorage("studentSubjects", studentSubjects);
     state.studentSubjects = studentSubjects;
@@ -103,7 +107,6 @@ const mutations = {
 const getters = {
   [getr.STUDENT]: () => {
     let student = state.student;
-    console.log("Student", student);
     if (!student) {
       student = getFromStorage("student");
     }
