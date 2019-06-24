@@ -5,7 +5,8 @@ module.exports = function (ctx) {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     boot: [
-      "axios"
+      "axios",
+      "vue-browser-geolocation"
     ],
 
     css: [
@@ -56,7 +57,8 @@ module.exports = function (ctx) {
 
       // Quasar plugins
       plugins: [
-        "Notify"
+        "Notify",
+        "Dialog"
       ]
 
       // iconSet: 'ionicons-v4'

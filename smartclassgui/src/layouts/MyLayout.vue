@@ -71,7 +71,6 @@ export default {
   },
   methods: {
     async logout () {
-      await this.$store.dispatch("logoutProfessor");
       await this.$store.dispatch("logoutStudent");
       this.$router.replace("/login");
     }

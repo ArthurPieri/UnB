@@ -25,12 +25,12 @@ const subjectSchema = new mongoose.Schema({
         trim: true
     },
     latitude: {
-        type: String,
-        trim: true
+        type: Number,
+        trim: true,
     },
     longitude: {
-        type: String,
-        trim: true
+        type: Number,
+        trim: true,
     },
     professors: [{
         professor: {

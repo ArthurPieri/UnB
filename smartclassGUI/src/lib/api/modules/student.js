@@ -6,9 +6,9 @@ const baseURL = "/students";
 export const loginStudent = (enrollment, password) => api.post(`${baseURL}/login`, { enrollment, password });
 
 // Logout student
-export const logoutStudent = () => {
-  requireAuth();
-  return api.post(`${baseURL}/logout`, null);
+export const logoutStudent = async () => {
+  await requireAuth();
+  return api.post(`${baseURL}/logout`);
 };
 
 // Enroll Student on a specific subject
@@ -23,9 +23,9 @@ export const getStudentSubjects = () => {
   return api.get(`${baseURL}/me/subjects`);
 };
 
-export const registerAttendance = (id, attendance) => {
+export const registerAttendance = (id, code) => {
   requireAuth();
-  return api.post(`${baseURL}/me/subjects/${id}`, attendance);
+  return api.post(`${baseURL}/me/subjects/${id}`, { code });
 };
 
 // New student

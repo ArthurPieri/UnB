@@ -230,28 +230,42 @@ router.post('/students/me/subjects/:id', auth, async (req, res) => {
     try{
         const subject = await Subject.findById(req.params.id)
         const student = await Student.findById(req.user._id)
+
+        const getSecondsFromDay = (time) => {
+            const d = new Date(time);
+            return d.getUTCHours() * 3600 + d.getMinutes() * 60 + d.getSeconds();
+        };
+        const now = Date.now();
+        const sec = getSecondsFromDay(now)
+        const lessonHasStarted = sec >= subject.startHour
+        const lessonHasFinished = sec >= subject.endHour
+        let stdntAttnd = student.subjects.filter(x => x._id.toString() === req.params.id)[0].attendance
+        stdntAttnd = stdntAttnd.filter(x => {
+            const date = new Date(x);
+            const time = new Date(now);
+            return date.getUTCFullYear() === time.getUTCFullYear() && date.getUTCDate() === time.getUTCDate() && time.getUTCMonth() === date.getUTCMonth()
+        })
         const {code, lat, lng} = req.body
 
-        if(!subject)
+        if(!subject) {
             return res.status(404).send('Matéria não encontrada')
+        }
 
-        subject.latitude.slice(0, -2)
-        lat.slice(0, -2)
-
-        if (subject.authCode != code) 
+        if (subject.registrationCode != code) {
             return res.status(401).send('Presença não aceita')
-
-        if (!subject.latitude.includes(lat)) 
-            return res.status(401).send('Por favor entre na sala de aula para ganhar presença')
-
-        if (!subject.longitude.includes(lng)) 
-            return res.status(401).send('Por favor entre na sala de aula para ganhar presença')
-            
-        student.confirmAttendance(req.params.id)
-
-        res.send('Presença confirmada!')
+        }
+        if (lessonHasStarted && !lessonHasFinished) {
+            if (stdntAttnd.length === 0) {
+                student.confirmAttendance(req.params.id, now);
+                res.send('Presença confirmada!')
+            } else {
+                return res.status(401).send('Você ja marcou presença na aula de hoje')
+            }
+        } else {
+            return res.status(401).send('Não é possível marcar presença pois não está no horário da aula')
+        }
     }catch(e){
-
+        return res.status(404).send(e)
     }
 })
 
