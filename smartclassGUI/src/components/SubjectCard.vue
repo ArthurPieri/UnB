@@ -84,6 +84,10 @@ export default {
         };
         try {
           await this.$store.dispatch("registerAttendance", x);
+          this.$q.notify({
+            message: "Presença Confirmada!",
+            color: "green"
+          });
         } catch (error) {
           this.$q.notify({
             message: error.response ? error.response.data : "Erro ao confirmar presença",
