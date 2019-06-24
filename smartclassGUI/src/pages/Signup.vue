@@ -47,24 +47,24 @@ export default {
     };
   },
   methods: {
-    async signup () {
+    signup () {
       const student = {
         enrollment: this.enrollment,
         password: this.password,
         name: this.name,
         email: this.email
       };
-      try {
-        await this.$store.dispatch(this.signupMethod, student);
-        if (this.$store.getters.student) {
-          this.$router.replace("/");
-        }
-      } catch (error) {
+      this.$store.dispatch(this.signupMethod, student).then(() => {
         this.$q.notify({
-          message: error.response.data.errmsg,
+          message: "Cadastro Realizado com Sucesso!",
+          color: "positive"
+        });
+      }).catch((error) => {
+        this.$q.notify({
+          message: error.response ? error.response.data.errmsg : error,
           color: "red"
         });
-      }
+      });
     },
     validateSignup () {
       if (this.enrollment && this.name && this.password && this.email && this.confirmPassword) {

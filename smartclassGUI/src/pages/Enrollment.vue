@@ -7,7 +7,7 @@
       v-for="(subject, i) of subjects"
       :key="i"
       :subject="subject"
-      :enrolled="studentSubjects.filter(x => x._id === subject._id).length > 0"
+      :enrolled="isEnrolled(subject)"
       card-type="enrollment"
     />
   </div>
@@ -15,24 +15,24 @@
 <script>
 import SubjectCard from "../components/SubjectCard";
 import { mapGetters } from "vuex";
-import { STUDENT_SUBJECTS } from "../store/getters";
+import { STUDENT_SUBJECTS, SUBJECTS } from "../store/getters";
 export default {
   components: {
     SubjectCard
   },
-  data () {
-    return {
-      subjects: []
-    };
-  },
   async mounted () {
     await this.$store.dispatch("fetchSubjects");
-    this.subjects = this.$store.getters.subjects;
   },
-  methods: {},
+  methods: {
+    isEnrolled (subject) {
+      const enrolled = this.studentSubjects.filter(x => x._id === subject._id).length > 0;
+      return enrolled;
+    }
+  },
   computed: {
     ...mapGetters([
-      STUDENT_SUBJECTS
+      STUDENT_SUBJECTS,
+      SUBJECTS
     ])
   }
 };

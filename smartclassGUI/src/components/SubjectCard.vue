@@ -21,7 +21,7 @@
     </q-card-section>
     <q-card-actions>
       <q-btn @click="prompt" v-if="$props.cardType === 'class'" flat>Confirmar Presença</q-btn>
-      <q-btn @click="enroll" v-if="$props.cardType === 'enrollment'" flat>Matrícula</q-btn>
+      <q-btn @click="enroll" :disable="enrolled" v-if="$props.cardType === 'enrollment'" flat>Matrícula</q-btn>
     </q-card-actions>
   </q-card>
 </template>
