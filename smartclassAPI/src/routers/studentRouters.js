@@ -183,7 +183,7 @@ router.post('/students/me/subject/:id', auth, async (req, res) => {
     try{
         req.user.subjects.push({_id:req.params.id})
         req.user.save()
-        res.status(204).send(req.user)
+        res.status(201).send(req.user)
     }catch(e){
         res.status(500).send()
     }
@@ -209,12 +209,37 @@ router.get('/students/me/subjects', auth, async (req, res) => {
 
 // TO-DO
 // Private post attendance to subject
+router.post('/students/me/subjects/:id', auth, async (req, res) => {
+    try{
+        const subject = await Subject.findById(req.params.id)
+        const student = await Student.findById(req.user._id)
+        const {code, lat, lng} = req.body
 
+        if(!subject)
+            return res.status(404).send('Matéria não encontrada')
+
+        subject.latitude.slice(0, -2)
+        lat.slice(0, -2)
+
+        if (subject.authCode != code) 
+            return res.status(401).send('Presença não aceita')
+
+        if (!subject.latitude.includes(lat)) 
+            return res.status(401).send('Por favor entre na sala de aula para ganhar presença')
+
+        if (!subject.longitude.includes(lng)) 
+            return res.status(401).send('Por favor entre na sala de aula para ganhar presença')
+            
+        res.send()
+    }catch(e){
+
+    }
+})
 // #### Post Subject attendance 
 // Tipo de request: POST
 // Uri: /students/me/subjects/:id
 // Obs: id from the subject
-// Header: authToken
+// Header: Bearer authToken
 // Body: {
 //     code: required,
 //     lat: required (latitude)
@@ -226,7 +251,7 @@ router.get('/students/me/subjects', auth, async (req, res) => {
 // #### Read studet class skips
 // Tipo de request: GET 
 // Uri: /students/me/subjects/:id/attendance
-// Header: authToken
+// Header: Bearer authToken
 // Body: none
 // Status code: 200, 400, 404, 500
 

@@ -1,6 +1,6 @@
 // Requiring all the packages
 const mongoose = require('mongoose')
-const bcrypt = require('bcryptjs')
+const Student = require('./student')
 
 // Setting up the subject schema for mongoose
 const subjectSchema = new mongoose.Schema({
@@ -88,6 +88,29 @@ subjectSchema.methods.generateCode = async function () {
     this.authCode = code
     await this.save()
     return this.authCode
+}
+
+subjectSchema.methods.skipAttendance = async function () {
+    const students = await Student.find({
+        subjects:[
+            {
+                _id: this._id
+            }
+        ] 
+    })
+
+    students.forEach((student) => {
+        const studentsLenght = students.length
+
+        for(i = 0; i < studentsLenght; i++){
+            if (student.subjects[i].id == this._id){
+                student.subjects[i].attendance.push({
+                    day: new Date()
+                })
+            }    
+        }
+        student.save()
+    })
 }
 
 const Subject = mongoose.model('Subjects', subjectSchema)

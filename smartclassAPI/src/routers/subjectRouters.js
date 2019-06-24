@@ -55,7 +55,7 @@ router.get('/subjects/:id', async (req, res) => {
 router.patch('subjects/:id', async (req, res) => {
     const _id = req.params.id
     const updates = Object.keys(req.body)
-    const allowedUpdates = ['address', 'professors', 'enrollmentkey']
+    const allowedUpdates = ['address', 'professors', 'enrollmentkey', 'address', 'latitude', 'longitude']
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
 
     if (!isValidOperation) {
@@ -92,7 +92,7 @@ router.delete('/subjects/:id', async (req, res) => {
     }
 })
 
-// TO DO
+// Private generate authCode for subject
 router.get('/subjects/:id/code', profAuth, async (req, res) => {
     try {
         const subject = await Subject.findById(req.params.id)
@@ -103,6 +103,8 @@ router.get('/subjects/:id/code', profAuth, async (req, res) => {
 
         const code = await subject.generateCode()
 
+        subject.skipAttendance()
+
         res.send(code)
     }catch (e) {
         return res.status(500).send(e)
@@ -110,10 +112,11 @@ router.get('/subjects/:id/code', profAuth, async (req, res) => {
 })
 
 // TO DO
+
 // #### Add new Professor to subject  
 // Tipo de request: POST 
 // Uri: /subjects/:id/professor
-// Header: authToken (Professor)
+// Header: Bearer authToken (Professor)
 // Body: {
 //     professor: _id
 // }
