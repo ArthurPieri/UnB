@@ -1,6 +1,8 @@
 export const getSecondsFromDay = () => {
   const d = new Date();
-  return d.getHours() * 3600 + d.getMinutes() * 60 + d.getSeconds();
+  const x = d.getHours() * 3600 + d.getMinutes() * 60 + d.getSeconds();
+  console.log(x);
+  return x;
 };
 export const getTimeFromSeconds = seconds => {
   const h = Math.floor(seconds / 3600);
