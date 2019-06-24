@@ -22,6 +22,7 @@ export default {
   },
   async mounted () {
     await this.$store.dispatch("fetchSubjects");
+    await this.$store.dispatch("getStudentSubjects");
   },
   methods: {
     isEnrolled (subject) {
