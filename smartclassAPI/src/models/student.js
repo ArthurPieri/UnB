@@ -119,8 +119,30 @@ studentSchema.pre('save', async function (next){
     next()
 })
 
-// TO DO
-// Validate Code, location and remove class skip for the day
+// Setting up the function to confirm attendance to class
+studentSchema.methods.confirmAttendance = async function (subjectId) {
+    const subjectsLength = this.subjects.length
+    const today = new Date()
+    const date = today.toString()
+    const newArray = []
+
+    for(i = 0; i < subjectsLength; i++){
+
+        if(this.subjects[i].id == subjectId) {
+            const daysLength = this.subjects[i].attendance.length
+
+            for(j = 0; j < daysLength; j++) {
+
+                if (!this.subjects[i].attendance[j].day.includes(date.slice(0, 15)))
+                    newArray.push(this.subjects[i].attendance[j].day)               
+            }
+        }
+    
+        this.subjects[i].attendance = newArray
+    }
+
+    this.save()
+}
 
 // Setting the mongoose Model for Student
 const Student = mongoose.model('Student', studentSchema)

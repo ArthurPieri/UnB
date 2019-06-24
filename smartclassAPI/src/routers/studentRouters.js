@@ -230,25 +230,16 @@ router.post('/students/me/subjects/:id', auth, async (req, res) => {
         if (!subject.longitude.includes(lng)) 
             return res.status(401).send('Por favor entre na sala de aula para ganhar presença')
             
-        res.send()
+        student.confirmAttendance(req.params.id)
+
+        res.send('Presença confirmada!')
     }catch(e){
 
     }
 })
-// #### Post Subject attendance 
-// Tipo de request: POST
-// Uri: /students/me/subjects/:id
-// Obs: id from the subject
-// Header: Bearer authToken
-// Body: {
-//     code: required,
-//     lat: required (latitude)
-//     lng: required (longitude)
-// }
-// Status code: 200, 401, 500
 
 // TO DO
-// #### Read studet class skips
+// #### Read student class skips
 // Tipo de request: GET 
 // Uri: /students/me/subjects/:id/attendance
 // Header: Bearer authToken
