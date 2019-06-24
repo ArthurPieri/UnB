@@ -43,7 +43,11 @@ module.exports = function (ctx) {
         "QAvatar",
         "QCard",
         "QCardSection",
-        "QCardActions"
+        "QCardActions",
+        "QForm",
+        "QInput",
+        "QSeparator",
+        "QChip"
       ],
 
       directives: [
@@ -64,7 +68,7 @@ module.exports = function (ctx) {
     build: {
       env: ctx.dev
         ? { // so on dev we'll have
-          API: JSON.stringify("http://127.0.0.1:3001")
+          API: JSON.stringify("http://127.0.0.1:4200")
         }
         : { // and on build (production):
           API: JSON.stringify("https://prod.api.com")

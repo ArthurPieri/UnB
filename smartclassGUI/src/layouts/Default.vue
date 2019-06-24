@@ -4,9 +4,6 @@
       <q-toolbar>
         <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
         <q-toolbar-title>{{$route.name}}</q-toolbar-title>
-        <q-btn flat round dense>
-          <q-icon @click="logout" name="exit_to_app" />
-        </q-btn>
       </q-toolbar>
     </q-header>
 
@@ -23,12 +20,7 @@
     >
       <q-scroll-area class="fit">
         <q-list padding>
-          <q-item
-            clickable
-            :active="$route.name === 'Home'"
-            @click="$router.replace('/')"
-            v-ripple
-          >
+          <q-item clickable @click="$route.replace('/')" :active="$route.name === 'Home'" v-ripple>
             <q-item-section avatar>
               <q-icon name="home" />
             </q-item-section>
@@ -38,12 +30,12 @@
           </q-item>
           <q-item
             clickable
-            @click="$router.replace('/matricula')"
+            @click="$route.replace('/matricula')"
             :active="$route.name === 'Matrícula'"
             v-ripple
           >
             <q-item-section avatar>
-              <q-icon name="assignment_turned_in" />
+              <q-icon name="home" />
             </q-item-section>
             <q-item-section>
               Matrícula
@@ -68,16 +60,6 @@ export default {
       drawer: true,
       miniState: true
     };
-  },
-  methods: {
-    async logout () {
-      await this.$store.dispatch("logoutProfessor");
-      await this.$store.dispatch("logoutStudent");
-      this.$router.replace("/login");
-    }
-  },
-  async mounted () {
-    await this.$store.dispatch("fetchStudent");
   }
 };
 </script>
