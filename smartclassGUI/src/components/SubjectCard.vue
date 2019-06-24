@@ -21,7 +21,7 @@
     </q-card-section>
     <q-card-actions>
       <q-btn @click="prompt" v-if="$props.cardType === 'class'" flat>Confirmar Presença</q-btn>
-      <q-btn @click="enroll" v-if="$props.cardType === 'enrollment'" flat>Matrícula</q-btn>
+      <q-btn @click="enroll" :disable="enrolled" v-if="$props.cardType === 'enrollment'" flat>Matrícula</q-btn>
     </q-card-actions>
   </q-card>
 </template>
@@ -59,6 +59,11 @@ export default {
       const id = this.$props.subject._id;
       await this.$store.dispatch("enrollStudent", id);
       await this.$store.dispatch("fetchStudent");
+      this.$q.notify({
+        message: "Matricula Realizada com Sucesso!",
+        color: "positive"
+      });
+      this.$router.replace("/");
     },
     async confirmAttendance () {
       this.$store.dispatch("registerAttendance", this.$props.subject._id);
