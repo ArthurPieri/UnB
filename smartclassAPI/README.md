@@ -42,28 +42,28 @@ Status code: 200, 400
 #### Logout Student 
 Tipo de request: POST
 Uri: /students/logout
-Header: authToken
+Header: Bearer authToken
 Body: none
 Status code: 200, 500
 
 #### Logout all sessions Student 
 Tipo de request: POST
 Uri: /students/logoutAll
-Header: authToken
+Header: Bearer authToken
 Body: none
 Status code: 200, 500
 
 #### Get Student profile
 Tipo de request: GET
 Uri: /students/me
-Header: authToken
+Header: Bearer authToken
 Body: none
 Status code: 200, 400
 
 #### Edit Student 
 Tipo de request: PATCH
 Uri: /students/me
-Header: authToken
+Header: Bearer authToken
 Body: {
      name,
      email,
@@ -75,7 +75,7 @@ Status code: 200, 400
 #### Delete Student 
 Tipo de request: DELETE
 Uri: /students/me
-Header: authToken
+Header: Bearer authToken
 Body: none
 Status code: 204, 400
 
@@ -84,7 +84,7 @@ Status code: 204, 400
 #### Upload SP 
 Tipo de request: POST
 Uri: /students/me/profilePic
-Header: authToken
+Header: Bearer authToken
 Body: {
     buffer: ("image")
 }
@@ -93,7 +93,7 @@ Status code:
 #### Delete SP
 Tipo de request: DELETE
 Uri: /students/me/profilePic
-Header: authToken
+Header: Bearer authToken
 Body: none
 Status code: 204, 500
 
@@ -110,7 +110,7 @@ Status code: 200, 404
 Tipo de request: POST
 Uri: /students/me/subject/:id
 Obs: :id from the subject
-Header: authToken
+Header: Bearer authToken
 Body: {
     _id: required
 }
@@ -119,7 +119,7 @@ Status code: 204, 400, 500
 #### Get all Student's subjects
 Tipo de request: GET
 Uri: /students/me/subjects
-Header: authToken
+Header: Bearer authToken
 Body: none
 Status code: 200, 500
 
@@ -127,7 +127,8 @@ Status code: 200, 500
 Tipo de request: POST
 Uri: /students/me/subjects/:id
 Obs: id from the subject
-Header: authToken
+Obs2: Na hora de mandar a latitude, mande apenas os 5 primeiros numeros
+Header: Bearer authToken
 Body: {
     code: required,
     lat: required (latitude)
@@ -138,7 +139,7 @@ Status code: 200, 401, 500
 #### Read student class skips (Qntd de faltas)
 Tipo de request: GET 
 Uri: /students/me/subjects/:id/attendance
-Header: authToken
+Header: Bearer authToken
 Body: none
 Status code: 200, 400, 404, 500
 
@@ -147,7 +148,7 @@ Status code: 200, 400, 404, 500
 #### Create Subject
 Tipo de request: POST
 Uri: /subjects/
-Header: authToken (professor)
+Header: Bearer authToken (professor)
 Body: {
     name: required,
     registrationCode: required, 
@@ -161,14 +162,19 @@ Body: {
         professor: _id
     ],
     semester: required,
-    enrollmentKey: String 
+    enrollmentKey: String,
+    startHour: required number,
+    endHour: required number,
+    days: [
+        day: required STRING
+    ]
 }
 Status code: 201, 400
 
 #### Read all Subjects  
 Tipo de request: GET
 Uri: /subjects/all 
-Header: authToken (Prof and student)
+Header: Bearer authToken (Prof and student)
 Body: none
 Status code: 200, 500
 
@@ -176,14 +182,14 @@ Status code: 200, 500
 Tipo de request: GET 
 Uri: /subjects/:id
 Obs: Id from the subject
-Header: authToken (Prof and student)
+Header: Bearer authToken (Prof and student)
 Body: none
 Status code: 200, 500
 
 #### Update one Subject  
 Tipo de request: PATCH
 Uri: /subjects/:id
-Header: authToken (Professor)
+Header: Bearer authToken (Professor)
 Body: {
     address: [
         address: String,
@@ -200,14 +206,14 @@ Status code: 200, 400, 404
 #### Get Subject code  
 Tipo de request: GET 
 Uri: /subjects/:id/code
-Header: authToken (Professor)
+Header: Bearer authToken (Professor)
 Body: none
 Status code: 200, 400, 500
 
 #### Add new Professor to subject  
 Tipo de request: POST 
 Uri: /subjects/:id/professor
-Header: authToken (Professor)
+Header: Bearer authToken (Professor)
 Body: {
     professor: _id
 }
@@ -241,14 +247,14 @@ Status code: 200, 400
 #### Logout professor 
 Tipo de request: POST
 Uri: /professor/logout
-Header: authToken
+Header: Bearer authToken
 Body: none
 Status code: 200, 500
 
 #### Logout all sessions professor 
 Tipo de request: POST
 Uri: /professor/logoutAll
-Header: authToken
+Header: Bearer authToken
 Body: none
 Status code: 200, 500
 
@@ -256,14 +262,14 @@ Status code: 200, 500
 Tipo de request: GET
 Uri: /professor/:id
 Obs: id from the professor
-Header: authToken
+Header: Bearer authToken
 Body: none
 Status code: 200, 400
 
 #### Edit professor 
 Tipo de request: PATCH
 Uri: /professor/me
-Header: authToken
+Header: Bearer authToken
 Body: {
      name,
      email,
@@ -277,7 +283,7 @@ Status code: 200, 400
 #### Upload PP 
 Tipo de request: POST
 Uri: /professor/me/profilePic
-Header: authToken
+Header: Bearer authToken
 Body: {
     buffer: ("image")
 }
@@ -286,7 +292,7 @@ Status code:
 #### Delete PP
 Tipo de request: DELETE
 Uri: /professor/me/profilePic
-Header: authToken
+Header: Bearer authToken
 Body: none
 Status code: 204, 500
 
@@ -302,7 +308,7 @@ Status code: 200, 404
 #### Get all Professor's subjects
 Tipo de request: GET
 Uri: /professor/me/subjects
-Header: authToken
+Header: Bearer authToken
 Body: none
 Status code: 200, 500
 
@@ -310,7 +316,7 @@ Status code: 200, 500
 Tipo de request: POST
 Uri: /professor/me/subject/:id
 Obs: :id from the subject
-Header: authToken
+Header: Bearer authToken
 Body: {
     _id: required
 }

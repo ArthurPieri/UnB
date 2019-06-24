@@ -1,5 +1,6 @@
 // Requiring all the packages
 const mongoose = require('mongoose')
+const Student = require('./student')
 
 // Setting up the subject schema for mongoose
 const subjectSchema = new mongoose.Schema({
@@ -19,20 +20,18 @@ const subjectSchema = new mongoose.Schema({
         trim: true,
         required: [true, 'Por favor, informe a turma']
     },
-    address: [{
-        address: {
-            type: String,
-            trim: true
-        },
-        latitude: {
-            type: String,
-            trim: true
-        },
-        longitude: {
-            type: String,
-            trim: true
-        }
-    }],
+    address: {
+        type: String,
+        trim: true
+    },
+    latitude: {
+        type: String,
+        trim: true
+    },
+    longitude: {
+        type: String,
+        trim: true
+    },
     professors: [{
         professor: {
             type: mongoose.Schema.Types.ObjectId,
@@ -45,6 +44,23 @@ const subjectSchema = new mongoose.Schema({
     },
     enrollmentKey:{
         type: String
+    },
+    startHour:{
+        type: Number,
+        required: true
+    },
+    endHour:{
+        type: Number,
+        required: true
+    },
+    days:[{
+        day:{
+        type: String,
+        required: true
+        }
+    }],
+    authCode:{
+        type: String
     }
 })
 
@@ -55,7 +71,8 @@ subjectSchema.pre('save', async function (next) {
         name: subject.name,
         registrationCode: subject.registrationCode,
         class: subject.class,
-        semester: subject.semester
+        semester: subject.semester,
+        authCode: subject.authCode
     })
 
     if(subj){
@@ -65,8 +82,36 @@ subjectSchema.pre('save', async function (next) {
     next()    
 })
 
-// TO DO
-// Generate code
+// Generate code for attendance 
+subjectSchema.methods.generateCode = async function () {
+    const code = Math.random().toString(36).slice(-8)
+    this.authCode = code
+    await this.save()
+    return this.authCode
+}
+
+subjectSchema.methods.skipAttendance = async function () {
+    const students = await Student.find({
+        subjects:[
+            {
+                _id: this._id
+            }
+        ] 
+    })
+
+    students.forEach((student) => {
+        const studentsLenght = students.length
+
+        for(i = 0; i < studentsLenght; i++){
+            if (student.subjects[i].id == this._id){
+                student.subjects[i].attendance.push({
+                    day: new Date()
+                })
+            }    
+        }
+        student.save()
+    })
+}
 
 const Subject = mongoose.model('Subjects', subjectSchema)
 
