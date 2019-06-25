@@ -47,7 +47,8 @@ module.exports = function (ctx) {
         "QForm",
         "QInput",
         "QSeparator",
-        "QChip"
+        "QChip",
+        "QExpansionItem"
       ],
 
       directives: [

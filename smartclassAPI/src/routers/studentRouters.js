@@ -239,7 +239,11 @@ router.post('/students/me/subjects/:id', auth, async (req, res) => {
         const sec = getSecondsFromDay(now)
         const lessonHasStarted = sec >= subject.startHour
         const lessonHasFinished = sec >= subject.endHour
-        console.log(sec, subject.startHour, subject.endHour);
+        const correctDay = subject.days.some(x => {
+            const d = new Date(now);
+            return x === d.getDay();
+        });
+        
         let stdntAttnd = student.subjects.filter(x => x._id.toString() === req.params.id)[0].attendance
         stdntAttnd = stdntAttnd.filter(x => {
             const date = new Date(x);
@@ -253,10 +257,11 @@ router.post('/students/me/subjects/:id', auth, async (req, res) => {
             return res.status(404).send('Matéria não encontrada')
         }
 
+        
         if (subject.registrationCode != code) {
             return res.status(401).send('Código Inválido')
         }
-        if (lessonHasStarted && !lessonHasFinished) {
+        if (lessonHasStarted && !lessonHasFinished && correctDay) {
             if (stdntAttnd.length === 0) {
                 student.confirmAttendance(req.params.id, now);
                 res.send('Presença confirmada!')

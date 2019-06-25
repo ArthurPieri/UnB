@@ -28,6 +28,16 @@ const routes = [
         path: "/matricula",
         name: "Matrícula",
         component: () => import("pages/Enrollment.vue")
+      },
+      {
+        path: "/gradehoraria",
+        name: "Grade Horária",
+        component: () => import("pages/Schedule.vue")
+      },
+      {
+        path: "/perfil",
+        name: "Meu Perfil",
+        component: () => import("pages/Profile.vue")
       }
     ]
   },
