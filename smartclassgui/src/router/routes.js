@@ -22,21 +22,25 @@ const routes = [
       {
         path: "",
         name: "Home",
+        beforeEnter: requireAuth,
         component: () => import("pages/Index.vue")
       },
       {
         path: "/matricula",
         name: "Matrícula",
+        beforeEnter: requireAuth,
         component: () => import("pages/Enrollment.vue")
       },
       {
         path: "/gradehoraria",
         name: "Grade Horária",
+        beforeEnter: requireAuth,
         component: () => import("pages/Schedule.vue")
       },
       {
         path: "/perfil",
         name: "Meu Perfil",
+        beforeEnter: requireAuth,
         component: () => import("pages/Profile.vue")
       }
     ]
