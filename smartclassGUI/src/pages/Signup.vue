@@ -16,7 +16,7 @@
               hint="Ex: 012345678"
               label="Sua matrícula *"/>
             <div v-if="password !== confirmPassword">As senhas não coincidem</div>
-            <q-input v-model="password" type="password" label="Sua Senha *"/>
+            <q-input v-model="password" type="password" label="Sua Senha * (8 ou mais caracretes)"/>
             <q-input v-model="confirmPassword" type="password" label="Confirme Sua Senha *"/>
             <q-input v-model="email" label="Seu E-mail *"/>
             <q-input
@@ -68,7 +68,19 @@ export default {
     },
     validateSignup () {
       if (this.enrollment && this.name && this.password && this.email && this.confirmPassword) {
-        this.signup();
+        if (this.password !== this.confirmPassword) {
+          this.$q.notify({
+            message: "As senhas não conicidem",
+            color: "red"
+          });
+        } else if (this.password.length <= 8) {
+          this.$q.notify({
+            message: "A senha deve ter mais de 8 caracteres",
+            color: "red"
+          });
+        } else {
+          this.signup();
+        }
       } else {
         this.$q.notify({
           message: "Todos os campos devem ser preenchidos",

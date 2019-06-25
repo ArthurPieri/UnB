@@ -27,10 +27,10 @@ router.post('/subjects', async(req, res) => {
 // Reminder to change auth!
 router.get('/subjects/all', async (req, res) => {   
     try{
-        const subjects = await Subject.find({})
+        const subjects = await Subject.find({}, null, {sort: {name: 1}})
         res.send(subjects)
     }catch(e){
-        res.status(500).send()
+        res.status(500).send(e)
     }
     
 })

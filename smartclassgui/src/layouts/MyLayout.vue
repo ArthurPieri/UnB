@@ -49,6 +49,19 @@
               Matrícula
             </q-item-section>
           </q-item>
+          <q-item
+            clickable
+            @click="$router.replace('/perfil')"
+            :active="$route.name === 'Meu Perfil'"
+            v-ripple
+          >
+            <q-item-section avatar>
+              <q-icon name="account_circle" />
+            </q-item-section>
+            <q-item-section>
+              Perfil
+            </q-item-section>
+          </q-item>
         </q-list>
       </q-scroll-area>
     </q-drawer>
