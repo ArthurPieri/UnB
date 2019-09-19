@@ -1,0 +1,257 @@
+<html>
+<head>
+  <title>aula-01-metodo-grafico</title>
+  <basefont face="Tahoma" size="2" />
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  <meta name="exporter-version" content="Evernote Windows/303244 (pt-BR, DDL); Windows/10.0.10586 (Win64);"/>
+  <style>
+    body, td {
+      font-family: Tahoma;
+      font-size: 10pt;
+    }
+  </style>
+</head>
+<body>
+<a name="2488"/>
+<h1>aula-01-metodo-grafico</h1>
+<div>
+<table bgcolor="#D4DDE5" border="0">
+<tr><td><b>Etiquetas:</b></td><td><i>p unb mmqd1, prova_titulos</i></td></tr>
+</table>
+</div>
+<br/>
+
+<div><span style=";">
+
+<h1 style="margin-bottom: 1em; margin-top: 1.2em;">Aula 01 - Método Gráfico</h1>
+
+<h2>Aplicação Real</h2>
+
+<p><em>(Cap. 2 pg. 6 taha, 2008)</em></p>
+
+<h3>Frontier Airlines (economia de combustível)</h3>
+
+<blockquote style="border-left: .5ex solid #BFBFBF; margin-left: 0px; padding-left: 1em; margin-top: 1.4285em; margin-bottom: 1.4285em;">
+  <p>O abastecimento de uma aeronave pode ocorrer em qualquer uma das escalas ao longo da rota do voo. O preço do combustível varia conforma as escalas e é possível conseguir economizar substancialmente ao abastecer a aeronave com combustível a mais (operação denominada tankering) em um lugar onde ele seja mais barato para ser utilizado em etapas subsequentes do voo. A desvantagem do tankering é a queima de uma quantidade maior de gasolina resultante do peso adicional. PL (e heurística) é usada para determinar a quantidade ótima de tankering que equilibraria o custo da queima de mais gasolina com a economia do custo de combustível. O estudo, realizado em 1981, resultou em uma economia líquida de aproximadamente US$ 350.000,00 por ano.</p>
+</blockquote>
+
+<h2>Programação Linear pelo Método Gráfico</h2>
+
+<ul>
+<li>Para solução de problemas com 2 variáveis</li>
+<li>3 variáveis: mais complexo pelo método gráfico
+<ul>
+<li>3 ou + variáveis: aplicam-se outros métodos</li>
+</ul></li>
+</ul>
+
+<h3>Exemplo 1: Companhia Pinta Como Eu Pinto</h3>
+
+<p><em>(2.2.1 Solução de um modelo de maximização, pg. 8, taha, 2008)</em></p>
+
+<p>A Pinta Como Eu Pinto produz tintas para interiores e exteriores com base em duas matérias primas: M1 e M2. (ver tabela) Uma pesquisa de mercado indica que a demanda diária de tintas para interiores não pode ultrapassar a de tintas para exteriores por mais de 1 tonelada. Além disso, a demanda máxima diária de tinta para interiores é de 2 toneladas. Qual é o mix ótimo (melhor) de produtos de tintas para interiores e exteriores que a Pinta Como Eu Pinto deve produzir para maximizar o lucro total diário.</p>
+
+<table style="border-collapse: collapse; border-spacing: 0; margin: 1em;">
+<thead>
+<tr>
+  <th style="border: 1px solid #DDD; padding: 6px 13px;">Matérias-primas</th>
+  <th style="border: 1px solid #DDD; padding: 6px 13px;">Tinta para   exteriores</th>
+  <th style="border: 1px solid #DDD; padding: 6px 13px;">Tinta para   interiores</th>
+  <th style="border: 1px solid #DDD; padding: 6px 13px;">Disponibilidade   máxima diária (ton)</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border: 1px solid #DDD; padding: 6px 13px;">
+  <td style="border: 1px solid #DDD; padding: 6px 13px;">M1</td>
+  <td style="border: 1px solid #DDD; padding: 6px 13px;">6</td>
+  <td style="border: 1px solid #DDD; padding: 6px 13px;">4</td>
+  <td style="border: 1px solid #DDD; padding: 6px 13px;">24</td>
+</tr>
+<tr style="border: 1px solid #DDD; padding: 6px 13px; background-color: #F8F8F8;">
+  <td style="border: 1px solid #DDD; padding: 6px 13px;">M2</td>
+  <td style="border: 1px solid #DDD; padding: 6px 13px;">1</td>
+  <td style="border: 1px solid #DDD; padding: 6px 13px;">2</td>
+  <td style="border: 1px solid #DDD; padding: 6px 13px;">6</td>
+</tr>
+<tr style="border: 1px solid #DDD; padding: 6px 13px;">
+  <td style="border: 1px solid #DDD; padding: 6px 13px;">Lucro por tonelada (R$   1.000,00)</td>
+  <td style="border: 1px solid #DDD; padding: 6px 13px;">5</td>
+  <td style="border: 1px solid #DDD; padding: 6px 13px;">4</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Componentes básicos de um modelo de PL</h2>
+
+<ol>
+<li>Variáveis de decisão que procuramos determinar</li>
+<li>Objetivo (meta) que precisamos otimizar (maximizar ou minimizar)</li>
+<li>Restrições que a solução deve satisfazer</li>
+</ol>
+
+<h3>Como &quot;achar&quot; os componentes básicos</h3>
+
+<ul>
+<li>Dissecar o texto</li>
+<li>Pegar o problema e reescrevê-lo com as suas palavras, de forma clara e didática no papel</li>
+<li>Pegar essa informação clara e colocar na forma do modelo de PL</li>
+</ul>
+
+<h3>Exemplo 1 - Componentes básicos: Pinta Como Eu Pinto</h3>
+
+<ol>
+<li>Variáveis de Decisão 
+<ul>
+<li><img alt="formula" src="http://latex.codecogs.com/gif.latex?x_1"></img> = toneladas de tinta para exteriores produzidas diariamanete</li>
+<li><img alt="formula" src="http://latex.codecogs.com/gif.latex?x_2"></img> = toneladas de tinta para interiores produzidas diariamente</li>
+</ul></li>
+<li>Função Objetivo 
+<ul>
+<li>Maximizar <img alt="formula" src="http://latex.codecogs.com/gif.latex?z%3D5x_1%2B4x_2"></img></li>
+</ul></li>
+<li>Restrições
+| 
+utilização de uma matéria-prima para ambas as tintas | <img alt="formula" src="http://latex.codecogs.com/gif.latex?%5Cle" title="\le"></img> | máxima disponibilidade de matéria-prima</li>
+</ol>
+
+<blockquote style="border-left: .5ex solid #BFBFBF; margin-left: 0px; padding-left: 1em; margin-top: 1.4285em; margin-bottom: 1.4285em;">
+  <p><img alt="formula" src="http://latex.codecogs.com/gif.latex?6x_1%2B4x_2%20%5Cleqslant%2024"></img></p>
+  
+  <p><img alt="formula" src="http://latex.codecogs.com/gif.latex?x_1%20%2B%202x_2%20%5Cleqslant%206"></img></p>
+  
+  <p><img alt="formula" src="http://latex.codecogs.com/gif.latex?x_2-x_1%20%5Cleqslant%201"></img></p>
+  
+  <p><img alt="formula" src="http://latex.codecogs.com/gif.latex?x_2%20%5Cleqslant%202"></img></p>
+  
+  <p><img alt="formula" src="http://latex.codecogs.com/gif.latex?x_1%20%5Cgeqslant%200%2C%20x_2%20%5Cgeqslant%200"></img></p>
+</blockquote>
+
+<p><strong>OBS</strong>: Não tem problema se houver restrição redundante. Problema tem se existir alguma restrição e ela não estiver especificada.</p>
+
+<h3>Modelo Completo: Pinta Como Eu Pinto</h3>
+
+<table style="border-collapse: collapse; border-spacing: 0; margin: 1em;">
+<thead>
+<tr>
+  <th style="border: 1px solid #DDD; padding: 6px 13px;">Maximizar</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border: 1px solid #DDD; padding: 6px 13px;">
+  <td style="border: 1px solid #DDD; padding: 6px 13px;">Sujeiro a:</td>
+</tr>
+<tr style="border: 1px solid #DDD; padding: 6px 13px; background-color: #F8F8F8;">
+  <td style="border: 1px solid #DDD; padding: 6px 13px;"><img alt="formula" src="http://latex.codecogs.com/gif.latex?6x_1%2B4x_2%20%5Cleqslant%2024"></img></td>
+  <td style="border: 1px solid #DDD; padding: 6px 13px;">(1) (matéria-prima M1)</td>
+</tr>
+<tr style="border: 1px solid #DDD; padding: 6px 13px;">
+  <td style="border: 1px solid #DDD; padding: 6px 13px;"><img alt="formula" src="http://latex.codecogs.com/gif.latex?x_1%20%2B%202x_2%20%5Cleqslant%206"></img></td>
+  <td style="border: 1px solid #DDD; padding: 6px 13px;">(2) (matéria-prima M2)</td>
+</tr>
+<tr style="border: 1px solid #DDD; padding: 6px 13px; background-color: #F8F8F8;">
+  <td style="border: 1px solid #DDD; padding: 6px 13px;"><img alt="formula" src="http://latex.codecogs.com/gif.latex?x_2-x_1%20%5Cleqslant%201"></img></td>
+  <td style="border: 1px solid #DDD; padding: 6px 13px;">(3) (limite de mercado)</td>
+</tr>
+<tr style="border: 1px solid #DDD; padding: 6px 13px;">
+  <td style="border: 1px solid #DDD; padding: 6px 13px;"><img alt="formula" src="http://latex.codecogs.com/gif.latex?x_2%20%5Cleqslant%202"></img></td>
+  <td style="border: 1px solid #DDD; padding: 6px 13px;">(4) (limite de demanda)</td>
+</tr>
+<tr style="border: 1px solid #DDD; padding: 6px 13px; background-color: #F8F8F8;">
+  <td style="border: 1px solid #DDD; padding: 6px 13px;"><img alt="formula" src="http://latex.codecogs.com/gif.latex?x_1%20%5Cgeqslant%200%2C%20x_2%20%5Cgeqslant%200"></img></td>
+  <td style="border: 1px solid #DDD; padding: 6px 13px;">(5) (restrição de não-negatividade,   implícita)</td>
+</tr>
+</tbody>
+</table>
+
+<h3>Teste: Pinta Como Eu Pinto</h3>
+
+<ul>
+<li>Se:
+<ul>
+<li><img alt="formula" src="http://latex.codecogs.com/gif.latex?x_1"></img> = 3, <img alt="formula" src="http://latex.codecogs.com/gif.latex?x_2"></img> = 1</li>
+<li><img alt="formula" src="http://latex.codecogs.com/gif.latex?x_1"></img> = 2, <img alt="formula" src="http://latex.codecogs.com/gif.latex?x_2"></img> = 5</li>
+<li><img alt="formula" src="http://latex.codecogs.com/gif.latex?x_1"></img> = 4, <img alt="formula" src="http://latex.codecogs.com/gif.latex?x_2"></img> = 1</li>
+</ul></li>
+<li>Meta:
+<ul>
+<li>Achar uma solução viável E ótima</li>
+</ul></li>
+</ul>
+
+<h2>Linearidade</h2>
+
+<p><em>Implica em que? (Três propriedades básicas)</em></p>
+
+<ol>
+<li>Proporcionalidade:</li>
+</ol>
+
+<blockquote style="border-left: .5ex solid #BFBFBF; margin-left: 0px; padding-left: 1em; margin-top: 1.4285em; margin-bottom: 1.4285em;">
+  <p>Essa propriedade requer que a contribuição de cada variável de decisão, tanto na função objetivo quanto nas restrições seja diretamente proporcional ao valor da variável. Por exemplo, no modelo &quot;Pinta Como Eu Pinto&quot;, as quantidades 5x1 e 4x2 dão os lucros para a produção de x1 e x2 toneladas de tinta para exteriores e interiores, respectivamente, sendo que os lucros unitários por toneladas, 5 e 4, darão as constantes de proporcionalidade. Por outro lado, se a &quot;Pinta Como Eu Pinto&quot; conceder algum tipo de desconto por quantidade quanto as vendas ultrapassarem certas quantidades, o lucro não será mais proporcional à quantidades de produção, x1 e x2, e a função lucro se torna não linear.</p>
+</blockquote>
+
+<ol>
+<li>Aditividade</li>
+</ol>
+
+<blockquote style="border-left: .5ex solid #BFBFBF; margin-left: 0px; padding-left: 1em; margin-top: 1.4285em; margin-bottom: 1.4285em;">
+  <p>Essa propriedade requer que a contribuição total de todas as variáveis da função objetivo e das restrições seja a soma direta das contribuições individuais de cada variável. No modelo da Pinta Como Eu Pinto, o lucro total é igual à soma dos dois componentes individuais do lucro. Contudo, se os dois produtos competirem por participação de mercado de modo tal que um aumento nas vendas de um deles provoque um efeito adverso nas vendas do outro, então a propriedade de aditividade não é satisfeita e o modelo deixa de ser linear.</p>
+</blockquote>
+
+<ol>
+<li>Certeza</li>
+</ol>
+
+<blockquote style="border-left: .5ex solid #BFBFBF; margin-left: 0px; padding-left: 1em; margin-top: 1.4285em; margin-bottom: 1.4285em;">
+  <p>Todos os coeficientes da função objetivo e das restrições do modelo de PL são determinísticos, o que significa que são constantes conhecidas - uma ocorrência rara na vida real, na qual o mais provável é que os dados sejam representados por distribuições de probabilidade. Em essência, os coeficientes em PL são aproximações do valor médio das distribuições de probabilidade. Se os desvios-padrão dessas distribuições forem suficientemente pequenos, a aproximação será aceitável. Grandes desvios-padrão podem ser levados em conta diretamente com a utilização de algoritmos estocásticos de PL ou indiretamente pela aplicação de análise de sensibilidade à solução ótima.</p>
+</blockquote>
+
+<h2>Solução Gráfica em PL</h2>
+
+<ol>
+<li>Plotar no gráfico todas as funções de restrição</li>
+<li>Determinação da região de soluções viáveis</li>
+<li>Encontrar os pontos extremos</li>
+<li>Determinação da solução ótima entre todos os pontos viáveis da região de soluções.</li>
+</ol>
+
+<h3>Exemplo 1 - Solução Gráfica: Pinta Como Eu Pinto</h3>
+
+<ul>
+<li>O que é o Z no gráfico? Onde ele fica? Aumentando e diminuindo o Z.</li>
+<li>Múltiplas soluções de Z</li>
+</ul>
+
+<h3>Exemplo 2 - Solução Gráfica: Ozark Farms</h3>
+
+<p>A Ozark Farms usa no mínimo 800 lb de ração especial por dia. Essa ração especial é uma mistura de milho e soja com as composições elencadas na Tabela a seguir. Os requisitos nutricionais da ração especial são de no mínimo 30% de proteína e de no máximo 5% de fibra. A Ozark Farms quer determinar a mistura que gera a ração de mínimo custo diário.</p>
+
+<table style="border-collapse: collapse; border-spacing: 0; margin: 1em;">
+<thead>
+<tr>
+  <th style="border: 1px solid #DDD; padding: 6px 13px;">Lb por lb   de ração</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border: 1px solid #DDD; padding: 6px 13px;">
+  <td style="border: 1px solid #DDD; padding: 6px 13px;">Ração</td>
+  <td style="border: 1px solid #DDD; padding: 6px 13px;">Proteína</td>
+  <td style="border: 1px solid #DDD; padding: 6px 13px;">Fibra</td>
+  <td style="border: 1px solid #DDD; padding: 6px 13px;">Custo (R$/lb)</td>
+</tr>
+<tr style="border: 1px solid #DDD; padding: 6px 13px; background-color: #F8F8F8;">
+  <td style="border: 1px solid #DDD; padding: 6px 13px;">Milho</td>
+  <td style="border: 1px solid #DDD; padding: 6px 13px;">0,09</td>
+  <td style="border: 1px solid #DDD; padding: 6px 13px;">0,02</td>
+  <td style="border: 1px solid #DDD; padding: 6px 13px;">0,3</td>
+</tr>
+<tr style="border: 1px solid #DDD; padding: 6px 13px;">
+  <td style="border: 1px solid #DDD; padding: 6px 13px;">Soja</td>
+  <td style="border: 1px solid #DDD; padding: 6px 13px;">0,6</td>
+  <td style="border: 1px solid #DDD; padding: 6px 13px;">0,06</td>
+  <td style="border: 1px solid #DDD; padding: 6px 13px;">0,9</td>
+</tr>
+</tbody>
+</table>
+</span>
+</div></body></html> 

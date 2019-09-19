@@ -1,0 +1,128 @@
+---
+title: aula-01-metodo-grafico
+tags: ["p unb mmqd1", "prova_titulos"]
+notebook: p-unb-mmqd1-aulas
+---
+
+# Aula 01 - Método Gráfico
+
+## Aplicação Real
+*(Cap. 2 pg. 6 taha, 2008)*
+
+### Frontier Airlines (economia de combustível)
+
+> O abastecimento de uma aeronave pode ocorrer em qualquer uma das escalas ao longo da rota do voo. O preço do combustível varia conforma as escalas e é possível conseguir economizar substancialmente ao abastecer a aeronave com combustível a mais (operação denominada tankering) em um lugar onde ele seja mais barato para ser utilizado em etapas subsequentes do voo. A desvantagem do tankering é a queima de uma quantidade maior de gasolina resultante do peso adicional. PL (e heurística) é usada para determinar a quantidade ótima de tankering que equilibraria o custo da queima de mais gasolina com a economia do custo de combustível. O estudo, realizado em 1981, resultou em uma economia líquida de aproximadamente US$ 350.000,00 por ano.
+
+## Programação Linear pelo Método Gráfico
+
+* Para solução de problemas com 2 variáveis
+* 3 variáveis: mais complexo pelo método gráfico
+	* 3 ou + variáveis: aplicam-se outros métodos
+
+### Exemplo 1: Companhia Pinta Como Eu Pinto
+*(2.2.1 Solução de um modelo de maximização, pg. 8, taha, 2008)*
+
+A Pinta Como Eu Pinto produz tintas para interiores e exteriores com base em duas matérias primas: M1 e M2. (ver tabela) Uma pesquisa de mercado indica que a demanda diária de tintas para interiores não pode ultrapassar a de tintas para exteriores por mais de 1 tonelada. Além disso, a demanda máxima diária de tinta para interiores é de 2 toneladas. Qual é o mix ótimo (melhor) de produtos de tintas para interiores e exteriores que a Pinta Como Eu Pinto deve produzir para maximizar o lucro total diário.
+
+| Matérias-primas                    | Tinta para   exteriores | Tinta para   interiores | Disponibilidade   máxima diária (ton) |
+|------------------------------------|-------------------------|-------------------------|---------------------------------------|
+| M1                                 | 6                       | 4                       | 24                                    |
+| M2                                 | 1                       | 2                       | 6                                     |
+| Lucro por tonelada (R$   1.000,00) | 5                       | 4                       |                                       |
+
+## Componentes básicos de um modelo de PL
+
+1. Variáveis de decisão que procuramos determinar
+2. Objetivo (meta) que precisamos otimizar (maximizar ou minimizar)
+3. Restrições que a solução deve satisfazer
+
+### Como "achar" os componentes básicos
+
+* Dissecar o texto
+* Pegar o problema e reescrevê-lo com as suas palavras, de forma clara e didática no papel
+* Pegar essa informação clara e colocar na forma do modelo de PL
+
+### Exemplo 1 - Componentes básicos: Pinta Como Eu Pinto
+
+1. Variáveis de Decisão 
+	* ![formula](http://latex.codecogs.com/gif.latex?x_1) = toneladas de tinta para exteriores produzidas diariamanete
+	* ![formula](http://latex.codecogs.com/gif.latex?x_2) = toneladas de tinta para interiores produzidas diariamente
+2. Função Objetivo 
+	* Maximizar ![formula](http://latex.codecogs.com/gif.latex?z%3D5x_1%2B4x_2)
+3. Restrições
+| 
+utilização de uma matéria-prima para ambas as tintas | ![formula](http://latex.codecogs.com/gif.latex?%5Cle "\\le") | máxima disponibilidade de matéria-prima
+
+> ![formula](http://latex.codecogs.com/gif.latex?6x_1%2B4x_2%20%5Cleqslant%2024)
+> 
+> ![formula](http://latex.codecogs.com/gif.latex?x_1%20%2B%202x_2%20%5Cleqslant%206)
+> 
+> ![formula](http://latex.codecogs.com/gif.latex?x_2-x_1%20%5Cleqslant%201)
+> 
+> ![formula](http://latex.codecogs.com/gif.latex?x_2%20%5Cleqslant%202)
+> 
+> ![formula](http://latex.codecogs.com/gif.latex?x_1%20%5Cgeqslant%200%2C%20x_2%20%5Cgeqslant%200)
+
+**OBS**: Não tem problema se houver restrição redundante. Problema tem se existir alguma restrição e ela não estiver especificada.
+
+### Modelo Completo: Pinta Como Eu Pinto
+
+| Maximizar  |   |                                                  |
+|------------|---|--------------------------------------------------|
+| Sujeiro a: |   |                                                  |
+|            | ![formula](http://latex.codecogs.com/gif.latex?6x_1%2B4x_2%20%5Cleqslant%2024)  | (1) (matéria-prima M1)                           |
+|            | ![formula](http://latex.codecogs.com/gif.latex?x_1%20%2B%202x_2%20%5Cleqslant%206)  | (2) (matéria-prima M2)                           |
+|            | ![formula](http://latex.codecogs.com/gif.latex?x_2-x_1%20%5Cleqslant%201)  | (3) (limite de mercado)                          |
+|            | ![formula](http://latex.codecogs.com/gif.latex?x_2%20%5Cleqslant%202)  | (4) (limite de demanda)                          |
+|            | ![formula](http://latex.codecogs.com/gif.latex?x_1%20%5Cgeqslant%200%2C%20x_2%20%5Cgeqslant%200)  | (5) (restrição de não-negatividade,   implícita) |
+
+
+### Teste: Pinta Como Eu Pinto
+
+* Se:
+	* ![formula](http://latex.codecogs.com/gif.latex?x_1) = 3, ![formula](http://latex.codecogs.com/gif.latex?x_2) = 1
+	* ![formula](http://latex.codecogs.com/gif.latex?x_1) = 2, ![formula](http://latex.codecogs.com/gif.latex?x_2) = 5
+	* ![formula](http://latex.codecogs.com/gif.latex?x_1) = 4, ![formula](http://latex.codecogs.com/gif.latex?x_2) = 1
+* Meta:
+	* Achar uma solução viável E ótima
+
+## Linearidade
+*Implica em que? (Três propriedades básicas)*
+
+1. Proporcionalidade:
+
+> Essa propriedade requer que a contribuição de cada variável de decisão, tanto na função objetivo quanto nas restrições seja diretamente proporcional ao valor da variável. Por exemplo, no modelo "Pinta Como Eu Pinto", as quantidades 5x1 e 4x2 dão os lucros para a produção de x1 e x2 toneladas de tinta para exteriores e interiores, respectivamente, sendo que os lucros unitários por toneladas, 5 e 4, darão as constantes de proporcionalidade. Por outro lado, se a "Pinta Como Eu Pinto" conceder algum tipo de desconto por quantidade quanto as vendas ultrapassarem certas quantidades, o lucro não será mais proporcional à quantidades de produção, x1 e x2, e a função lucro se torna não linear.
+
+2. Aditividade
+
+> Essa propriedade requer que a contribuição total de todas as variáveis da função objetivo e das restrições seja a soma direta das contribuições individuais de cada variável. No modelo da Pinta Como Eu Pinto, o lucro total é igual à soma dos dois componentes individuais do lucro. Contudo, se os dois produtos competirem por participação de mercado de modo tal que um aumento nas vendas de um deles provoque um efeito adverso nas vendas do outro, então a propriedade de aditividade não é satisfeita e o modelo deixa de ser linear.
+
+3. Certeza
+
+> Todos os coeficientes da função objetivo e das restrições do modelo de PL são determinísticos, o que significa que são constantes conhecidas - uma ocorrência rara na vida real, na qual o mais provável é que os dados sejam representados por distribuições de probabilidade. Em essência, os coeficientes em PL são aproximações do valor médio das distribuições de probabilidade. Se os desvios-padrão dessas distribuições forem suficientemente pequenos, a aproximação será aceitável. Grandes desvios-padrão podem ser levados em conta diretamente com a utilização de algoritmos estocásticos de PL ou indiretamente pela aplicação de análise de sensibilidade à solução ótima.
+
+## Solução Gráfica em PL
+
+1. Plotar no gráfico todas as funções de restrição
+2. Determinação da região de soluções viáveis
+3. Encontrar os pontos extremos
+4. Determinação da solução ótima entre todos os pontos viáveis da região de soluções.
+
+### Exemplo 1 - Solução Gráfica: Pinta Como Eu Pinto
+
+* O que é o Z no gráfico? Onde ele fica? Aumentando e diminuindo o Z.
+* Múltiplas soluções de Z
+
+### Exemplo 2 - Solução Gráfica: Ozark Farms
+
+A Ozark Farms usa no mínimo 800 lb de ração especial por dia. Essa ração especial é uma mistura de milho e soja com as composições elencadas na Tabela a seguir. Os requisitos nutricionais da ração especial são de no mínimo 30% de proteína e de no máximo 5% de fibra. A Ozark Farms quer determinar a mistura que gera a ração de mínimo custo diário.
+
+| Lb por lb   de ração |          |       |               |
+|----------------------|----------|-------|---------------|
+| Ração                | Proteína | Fibra | Custo (R$/lb) |
+| Milho                | 0,09     | 0,02  | 0,3           |
+| Soja                 | 0,6      | 0,06  | 0,9           |
+
+
+  
+
